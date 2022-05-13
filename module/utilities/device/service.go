@@ -5,6 +5,8 @@ import "errors"
 type Service interface {
 	GetAllDevice() ([]Device, error)
 	GetDeviceByID(ID int) (Device, error)
+	GetAllTemperatures() ([]Temperature, error)
+	GetAllWaterLevel() ([]WaterLevel, error)
 }
 
 type service struct {
@@ -35,4 +37,22 @@ func (s *service) GetDeviceByID(ID int) (Device, error) {
 	}
 
 	return device, nil
+}
+
+func (s *service) GetAllTemperature() ([]Temperature, error) {
+	temperature, err := s.repository.GetAllTemperatures()
+	if err != nil {
+		return temperature, err
+	}
+
+	return temperature, nil
+}
+
+func (s *service) GetAllWaterLevel() ([]WaterLevel, error) {
+	waterLevel, err := s.repository.GetAllWaterLevel()
+	if err != nil {
+		return waterLevel, err
+	}
+
+	return waterLevel, nil
 }

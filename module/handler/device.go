@@ -8,6 +8,7 @@ import (
 
 type DeviceHandler interface {
 	ViewDataDevice(c *gin.Context)
+	NewDevice(c *gin.Context)
 }
 
 type deviceHandler struct {
@@ -19,5 +20,9 @@ func NewDeviceHandler(deviceService device.Service) *deviceHandler {
 }
 
 func (h *deviceHandler) ViewDataDevice(c *gin.Context) {
+	h.deviceService.GetAllDevice()
+}
+
+func (h *deviceHandler) NewDevice(c *gin.Context) {
 	h.deviceService.GetAllDevice()
 }

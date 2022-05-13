@@ -5,11 +5,13 @@ import (
 	"TamaskaPJU/module/utilities/user"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 type UserHandler interface {
 	RegisterUser(c *gin.Context)
+	Login(c *gin.Context)
 }
 
 type userHandler struct {
@@ -53,4 +55,37 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 	response := helper.APIRespon("Account has been registered", http.StatusOK, "success", formatter)
 
 	c.JSON(http.StatusOK, response)
+}
+
+func (h *userHandler) Login(c *gin.Context) {
+	var input user.LoginInput
+
+	err := c.ShouldBind(&input)
+	if err != nil {
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
+
+	user, err := h.userService.Login(input)
+	if err != nil {
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
+
+	session := sessions.Default(c)
+	session.Set("userID", user.Id_users)
+	session.Set("userName", user.Nama)
+	session.Set("Role", user.Id_role)
+	session.Set("kawasan", user.Id_Kawasan)
+	session.Save()
+
+	c.Redirect(http.StatusFound, "/dashboard")
+}
+
+func (h *userHandler) Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+
+	c.Redirect(http.StatusFound, "/login")
 }
