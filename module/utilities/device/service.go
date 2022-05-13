@@ -1,12 +1,18 @@
 package device
 
-import "errors"
+import (
+	"SmartAquascape/module/utilities/device"
+	"errors"
+	"fmt"
+)
 
 type Service interface {
 	GetAllDevice() ([]Device, error)
 	GetDeviceByID(ID int) (Device, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
+	GetOneTurbidityByID(ID Turbidity) (Turbidity, error)
+	GetAllTurbidity() ([]Turbidity, error)
 }
 
 type service struct {
@@ -55,4 +61,20 @@ func (s *service) GetAllWaterLevel() ([]WaterLevel, error) {
 	}
 
 	return waterLevel, nil
+}
+
+func (s *service) GetOneTurbidityByID(ID int) (Turbidity, error) {
+	turbidity, err := s.repository.FindTurbidityByID(ID)
+	if err != nil {
+		return turbidity, err
+	}
+
+	var check Turbidity
+	if check.Data >= `400` {
+		fmt.Println("Air Keruh")
+	} else if check.Data < `400` {
+		fmt.Println("Air Jernih")
+	}
+
+	return turbidity, nil
 }

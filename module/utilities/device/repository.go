@@ -7,6 +7,8 @@ type Repository interface {
 	FindByID(ID int) (Device, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
+	FindTurbidityByID(ID int) (Turbidity, error)
+	GetAllTurbidity() ([]Turbidity, error)
 }
 
 type repository struct {
@@ -55,4 +57,22 @@ func (r *repository) GetAllWaterLevel() ([]WaterLevel, error) {
 		return waterLevel, err
 	}
 	return waterLevel, nil
+}
+
+func (r *repository) GetAllTurbidity() ([]Turbidity, error) {
+	var turbidity []Turbidity
+	err := r.db.Find(&turbidity).Error
+	if err != nil {
+		return turbidity, err
+	}
+	return turbidity, nil
+}
+
+func (r * repository) FindTurbidityByID(ID int) (Turbidity, error){
+	var turbidity Turbidity
+	err := r.db.Where("id").Find(&turbidity).Error
+	if err != nil {
+		return turbidity, err
+	}
+	return turbidity, nil
 }

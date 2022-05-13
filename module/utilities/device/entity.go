@@ -21,21 +21,22 @@ type Device struct {
 }
 
 type Temperature struct {
-	TempID      int
-	Temperature float64
-	CurrentTime time.Time
-	Data        string
+	ID          string    `json:"id"`
+	Temperature float64   `json:"temperature"`
+	CurrentTime time.Time `json:"current_time"`
+	Data        string    `json:"data"`
 }
 
 type WaterLevel struct {
-	LevelID     int
-	WaterLevel  float64
-	CurrentTime time.Time
-	Data        string
+	ID          string    `json:"id"`
+	WaterLevel  float64   `json:"water_level"`
+	CurrentTime time.Time `json:"current_time"`
+	Data        string    `json:"data"`
 }
 
 type Turbidity struct {
-	TurbidityID int
-	CurrentTime time.Time
-	Data        string
+	ID          string    `json:"id"`
+	Turbidity   float64   `json:"turbidity"`
+	CurrentTime time.Time `json:"current_time"`
+	Data        string    `json:"data"`
 }

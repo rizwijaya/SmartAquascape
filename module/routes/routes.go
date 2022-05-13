@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"TamaskaPJU/app/auth"
-	"TamaskaPJU/app/middlewares"
-	"TamaskaPJU/module/handler"
-	"TamaskaPJU/module/utilities/device"
-	"TamaskaPJU/module/utilities/user"
-	"TamaskaPJU/module/view"
+	"SmartAquascape/app/auth"
+	"SmartAquascape/app/middlewares"
+	"SmartAquascape/module/handler"
+	"SmartAquascape/module/utilities/device"
+	"SmartAquascape/module/utilities/user"
+	"SmartAquascape/module/view"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/multitemplate"

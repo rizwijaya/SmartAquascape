@@ -1,7 +1,7 @@
 package view
 
 import (
-	"TamaskaPJU/module/utilities/device"
+	"SmartAquascape/module/utilities/device"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -152,18 +152,3 @@ func (h *deviceView) ControllingDevice(c *gin.Context) {
 	h.ControlDevice(c)
 }
 
-func (h *deviceView) NewDevice(c *gin.Context) {
-	session := sessions.Default(c)
-	userID := session.Get("userID")
-	if userID == nil {
-		c.Redirect(http.StatusFound, "/login")
-		return
-	}
-	c.HTML(http.StatusOK, "newdevice", gin.H{
-		"UserID":     session.Get("userID"),
-		"UserName":   session.Get("userName"),
-		"Role":       session.Get("Role"),
-		"title":      "Tambah Device Tamaska",
-		"page":       "newdevice",
-		"notifikasi": session.Flashes()})
-}
