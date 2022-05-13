@@ -1,7 +1,6 @@
 package device
 
 import (
-	"SmartAquascape/module/utilities/device"
 	"errors"
 	"fmt"
 )
