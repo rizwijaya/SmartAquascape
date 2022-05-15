@@ -14,7 +14,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-const int rs = 10, en = 9, d4 = 8, d5 = 7, d6 = 6, d7 = 5;
+const int rs = 10, en = 9, d4 = 5, d5 = 6, d6 = 7, d7 = 8;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 OneWire oneWire(tempPin);
@@ -47,12 +47,12 @@ void setup() {
 }
 
 void loop() {
-  //stepMotorTest();
+  stepMotorTest();
   lcdTest();
-  //turbTest();
-  //buzTest();
-  //tempTest();
-  //usTest();
+  turbTest();
+  buzTest();
+  tempTest();
+  usTest();
   ledTest();
   // put your main code here, to run repeatedly:
 }
