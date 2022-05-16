@@ -19,31 +19,29 @@ Data Structure:
 Monitoring Sensor
 {
     header : 1,
-    Suhu : "",
-    WaterLevel : "",
-    Turbidity : "",
-    WaktuReq : ""
+    data    :"1:WaterLevel:Temperature:Turbidity",
+    waktuReq : ""
 }
 Konfigure Sending Sensor Data:
 {
     header : 4,
-    WaktuPengiriman : "", // Waktu pengiriman data Monitoring dalam menit
+    waktuPengiriman : "", // Waktu pengiriman data Monitoring dalam menit
 }
 Controlling Sensor Feeder:
 {
     header : 2,
     status : "",
     statusFeeder: "",
-    WaktuReq : ""
+    waktuReq : ""
 }
 Trigger Sensor By Time:
 {
     header : 3,
     status: "",
-    WaktuON_jam : "",
-    WaktuON_menit : "",
-    WaktuOFF_jam : "",
-    WaktuOFF_menit : "",
-    WaktuReq : ""
+    waktuON_jam : "",
+    waktuON_menit : "",
+    waktuOFF_jam : "",
+    waktuOFF_menit : "",
+    waktuReq : ""
 }
 ```
