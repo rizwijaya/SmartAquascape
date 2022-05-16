@@ -1,7 +1,7 @@
 package view
 
 import (
-	"TamaskaPJU/module/utilities/user"
+	"SmartAquascape/module/utilities/user"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"

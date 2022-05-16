@@ -1,8 +1,8 @@
 package main
 
 import (
-	"TamaskaPJU/app/config"
-	"TamaskaPJU/module/routes"
+	"SmartAquascape/app/config"
+	"SmartAquascape/module/routes"
 )
 
 func main() {

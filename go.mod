@@ -1,4 +1,4 @@
-module TamaskaPJU
+module SmartAquascape
 
 go 1.16
 

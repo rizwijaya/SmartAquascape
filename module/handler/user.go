@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"TamaskaPJU/app/helper"
-	"TamaskaPJU/module/utilities/user"
+	"SmartAquascape/app/helper"
+	"SmartAquascape/module/utilities/user"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
