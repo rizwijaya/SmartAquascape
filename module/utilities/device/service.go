@@ -120,5 +120,3 @@ func (s *service) GetOneTemperatureByID(ID int) (Temperature, error) {
 
 	return temperature, nil
 }
-
-
