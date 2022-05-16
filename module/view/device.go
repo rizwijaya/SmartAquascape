@@ -2,7 +2,6 @@ package view
 
 import (
 	"SmartAquascape/module/utilities/device"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -64,12 +63,12 @@ func (h *deviceView) DaftarDevice(c *gin.Context) {
 			"notifikasi": session.Flashes(),
 			"device":     device})
 	} else {
-		kawasan := fmt.Sprintf("%v", session.Get("kawasan"))
-		device, err := h.deviceService.GetDeviceKawasan(kawasan) // Get device by id user
-		if err != nil {
-			c.HTML(http.StatusInternalServerError, "error.html", nil)
-			return
-		}
+		// kawasan := fmt.Sprintf("%v", session.Get("kawasan"))
+		// device, err := h.deviceService.GetDeviceKawasan(kawasan) // Get device by id user
+		// if err != nil {
+		// 	c.HTML(http.StatusInternalServerError, "error.html", nil)
+		// 	return
+		// }
 		c.HTML(http.StatusOK, "daftardevice", gin.H{
 			"UserID":     session.Get("userID"),
 			"UserName":   session.Get("userName"),
@@ -77,31 +76,32 @@ func (h *deviceView) DaftarDevice(c *gin.Context) {
 			"title":      "Daftar Device Tamaska",
 			"page":       "daftardevice",
 			"notifikasi": session.Flashes(),
-			"device":     device})
+			//"device":     device
+		})
 	}
 }
 
-func (h *deviceView) DeleteDevice(c *gin.Context) {
-	sessions := sessions.Default(c)
+// func (h *deviceView) DeleteDevice(c *gin.Context) {
+// 	sessions := sessions.Default(c)
 
-	idParam := c.Param("id")
-	id, _ := strconv.Atoi(idParam)
+// 	idParam := c.Param("id")
+// 	id, _ := strconv.Atoi(idParam)
 
-	delete, err := h.deviceService.DeleteDevice(id)
-	if err != nil {
-		fmt.Println(err)
-		c.HTML(http.StatusInternalServerError, "error.html", nil)
-		return
-	}
-	if delete == 1 {
-		sessions.AddFlash("sukseshapusdevice")
-	} else {
-		sessions.AddFlash("gagalhapusdevice")
-	}
-	//sessions.Save()
-	//c.Redirect(http.StatusFound, "/daftardevice")
-	h.DaftarDevice(c)
-}
+// 	delete, err := h.deviceService.DeleteDevice(id)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		c.HTML(http.StatusInternalServerError, "error.html", nil)
+// 		return
+// 	}
+// 	if delete == 1 {
+// 		sessions.AddFlash("sukseshapusdevice")
+// 	} else {
+// 		sessions.AddFlash("gagalhapusdevice")
+// 	}
+// 	//sessions.Save()
+// 	//c.Redirect(http.StatusFound, "/daftardevice")
+// 	h.DaftarDevice(c)
+// }
 
 func (h *deviceView) ControlDevice(c *gin.Context) {
 	session := sessions.Default(c)
@@ -126,12 +126,12 @@ func (h *deviceView) ControlDevice(c *gin.Context) {
 			"notifikasi": session.Flashes(),
 			"device":     device})
 	} else {
-		kawasan := fmt.Sprintf("%v", session.Get("kawasan"))
-		device, err := h.deviceService.GetDeviceKawasan(kawasan) // Get device by id user
-		if err != nil {
-			c.HTML(http.StatusInternalServerError, "error.html", nil)
-			return
-		}
+		//kawasan := fmt.Sprintf("%v", session.Get("kawasan"))
+		// device, err := h.deviceService.GetDeviceKawasan(kawasan) // Get device by id user
+		// if err != nil {
+		// 	c.HTML(http.StatusInternalServerError, "error.html", nil)
+		// 	return
+		// }
 		c.HTML(http.StatusOK, "controldevice", gin.H{
 			"UserID":     session.Get("userID"),
 			"UserName":   session.Get("userName"),
@@ -139,7 +139,8 @@ func (h *deviceView) ControlDevice(c *gin.Context) {
 			"title":      "Kendali Jarak Jauh",
 			"page":       "controldevice",
 			"notifikasi": session.Flashes(),
-			"device":     device})
+			//"device":     device
+		})
 	}
 }
 
@@ -151,4 +152,3 @@ func (h *deviceView) ControllingDevice(c *gin.Context) {
 
 	h.ControlDevice(c)
 }
-

@@ -46,11 +46,11 @@ func Init(db *gorm.DB) *gin.Engine {
 	router.POST("/login", userHandler.Login)
 	router.GET("/logout", userHandler.Logout)
 	router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
-	router.GET("/deletedevice/:id", deviceView.DeleteDevice)
+	//router.GET("/deletedevice/:id", deviceView.DeleteDevice)
 	//router.GET("/editdevice/:id", deviceView.EditDevice)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
-	router.GET("/newdevice", middlewares.AllAkses(), deviceView.NewDevice)
+	//router.GET("/newdevice", middlewares.AllAkses(), deviceView.NewDevice)
 	//router.POST("/newdevice", middlewares.AllAkses(), deviceHandler.NewDevice)
 	//Routing API Service
 	api := router.Group("/api/v1")
