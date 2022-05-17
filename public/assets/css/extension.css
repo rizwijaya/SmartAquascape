@@ -1,0 +1,23 @@
+#brightness-range {
+    width: 100%;
+    -webkit-appearance: none;
+    background: #6f42c1;
+    height: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+#brightness-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #22438C;
+}
+
+#kontener {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
