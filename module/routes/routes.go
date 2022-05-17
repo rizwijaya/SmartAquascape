@@ -35,7 +35,7 @@ func Init(db *gorm.DB) *gin.Engine {
 	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
 	router.Use(sessions.Sessions("tamaskapju", cookieStore))
 
-	router.HTMLRender = ManualRender("./public/")
+	router.HTMLRender = ManualRender("./public/template/")
 
 	// Routing Website Service
 	// User
