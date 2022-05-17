@@ -10,9 +10,9 @@ type Service interface {
 	GetDeviceByID(ID int) (Device, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
-	GetOneTurbidityByID(ID Turbidity) (Turbidity, error)
-	GetOneWaterLevelByID(ID WaterLevel) (WaterLevel, error)
-	GetOneTemperatureByID(ID Temperature) (Temperature, error)
+	GetOneTurbidityByID(ID int) (Turbidity, error)
+	GetOneWaterLevelByID(ID int) (WaterLevel, error)
+	GetOneTemperatureByID(ID int) (Temperature, error)
 	GetAllTurbidity() ([]Turbidity, error)
 }
 
