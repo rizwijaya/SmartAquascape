@@ -28,7 +28,7 @@ func NewUserView(userService user.Service) *userView {
 
 func (h *userView) Login(c *gin.Context) {
 	c.HTML(http.StatusOK, "login", gin.H{
-		"title": "Tamaska Public Lighting Login",
+		"title": "SmartAquascape Login",
 		"data":  1})
 }
 
@@ -40,5 +40,5 @@ func (h *userView) Dashboard(c *gin.Context) {
 		"UserName": session.Get("userName"),
 		"page":     "dashboard",
 		"Role":     session.Get("Role"),
-		"title":    "Tamaska Public Lighting"})
+		"title":    "SmartAquascape"})
 }
