@@ -8,13 +8,15 @@
             <div class="authentication-inner">
                 <!-- Register -->
                 <div class="card">
-                    <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
-                        <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
-                        <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
-                        <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
-                        <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
-                        </g>
-                    </svg>
+                    <div class="ms-n1 pt-1">
+                        <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+                          <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                          <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                          <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                          <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+                          </g>
+                      </svg>
+                    </div>
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
@@ -85,11 +87,11 @@
                         <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus required />
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email Anda" autofocus required />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password</label>
+                                    <label class="form-label" for="password">Kata Sandi</label>
                                 </div>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" required />
@@ -99,11 +101,11 @@
                             <div class="mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                    <label class="form-check-label" for="remember-me"> Ingat Saya </label>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit">Masuk</button>
                             </div>
                         </form>
 
