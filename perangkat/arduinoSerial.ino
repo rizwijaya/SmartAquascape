@@ -13,7 +13,7 @@ SoftwareSerial Serial2(13, 19); // 2 rx, 3 tx
 
 String data, rec, data2;
 int trigPin = 4, echoPin = 3, tempPin = 12, buzzPin = 11, ledPin = 2;
-const int rs = 10, en = 9, d4 = 8, d5 = 7, d6 = 6, d7 = 5;
+const int rs = 10, en = 9, d4 = 5, d5 = 6, d6 = 7, d7 = 8;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 OneWire oneWire(tempPin);
@@ -110,35 +110,35 @@ void sendData(String data2) {
 
 void getDataSensor() {
   float waterL = WaterLevel();
-  float temp = TempAquascape();
+  float temp = TempAquscape();
   float turb = Turbidity();
   data2 = "1:"+String(waterL)+":"+String(temp)+":"+String(turb);
   sendData(data2);
 }
 
 void runFeeder(){
-  write(1,0,0,0);
+  fwrite(1,0,0,0);
   //delay(5);
-  write(1,1,0,0);
+  fwrite(1,1,0,0);
   //delay(5);
-  write(0,1,0,0);
+  fwrite(0,1,0,0);
   //delay(5);
-  write(0,1,1,0);
+  fwrite(0,1,1,0);
   //delay(5);
-  write(0,0,1,0);
+  fwrite(0,0,1,0);
   //delay(5);
-  write(0,0,1,1);
+  fwrite(0,0,1,1);
   //delay(5);
-  write(0,0,0,1);
+  fwrite(0,0,0,1);
   //delay(5);
-  write(1,0,0,1);
+  fwrite(1,0,0,1);
   //delay(5);
 }
 
 void cekData(String rec) {
-  if(Strcmp(rec, "monitoring")) {
+  if(strcmp(rec.c_str(), "monitoring")) {
     getDataSensor();
-  } else if(Strcmp(rec, "feeder")) {
+  } else if(strcmp(rec.c_str(), "feeder")) {
     runFeeder();
   }
 }
@@ -150,7 +150,7 @@ void receiveData() {
     data += d;
   }
   if (data.length() > 0){
-    strcpy(rec, data);
+    strcpy(rec.c_str(), data.c_str());
     cekData(rec);
   }
 }

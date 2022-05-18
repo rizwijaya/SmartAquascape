@@ -1,9 +1,11 @@
 #include <AntaresESP32MQTT.h>
+#include <ArduinoJson.h>
+#include <PubSubClient.h>
 #include "time.h"
 
-#define ACCESSKEY "your-access-key"       // Ganti dengan access key akun Antares anda
-#define WIFISSID "androidr"         // Ganti dengan SSID WiFi anda
-#define PASSWORD "rizwijaya581"     // Ganti dengan password WiFi anda
+#define ACCESSKEY "9fb52249c593c66d:b719370dce7d93b9"       // Ganti dengan access key akun Antares anda
+#define WIFISSID "ayangto"         // Ganti dengan SSID WiFi anda
+#define PASSWORD "ywsh5677"     // Ganti dengan password WiFi anda
 
 #define applicationName "smartAquascape"   // Ganti dengan application name Antares yang telah dibuat
 #define deviceName "Aquascape-001"     // Ganti dengan device Antares yang telah dibuat
@@ -42,7 +44,7 @@ String getTime(){
   char buffer[40];
   if(!getLocalTime(&timeinfo)){
     Serial.println("Failed to obtain time");
-    return;
+    return "0";
   }
   //Serial.println(&timeinfo, "%d %B %Y %H:%M:%S");
   sprintf(buffer, "%d:%B:%Y:%H:%M:%S", &timeinfo);
@@ -54,7 +56,7 @@ String getTimeNoSplit(){
   char buffer[40];
   if(!getLocalTime(&timeinfo)){
     Serial.println("Failed to obtain time");
-    return;
+    return "0";
   }
   //Serial.println(&timeinfo, "%d %B %Y %H:%M:%S");
   sprintf(buffer, "%d%B%Y%H%M%S", &timeinfo);
@@ -83,13 +85,13 @@ void sendAntares(String data, int id) {
 }
 
 void dataMonitoring() { //get data monitoring Arduino
-  serial2.print("monitoring");
+  Serial2.print("monitoring");
   rec = receiveData();
   sendAntares(rec, 1);
 }
 
 void controlFeeder() { //control feeder
-  serial2.print("feeder");
+  Serial2.print("feeder");
   // rec = receiveData();
   // sendAntares(rec, 3);
 }
