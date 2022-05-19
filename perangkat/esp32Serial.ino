@@ -101,3 +101,15 @@ void loop() {
   dataMonitoring();  
   //controlFeeder();
 }
+
+void kirimAntares(String data, int id) {
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+
+  if(id == 1) {
+    antares.add("header", 1);
+    antares.add("data", data);
+    antares.add("WaktuReq", getTime());
+  }
+  
+  antares.publish(applicationName, deviceName);   
+}   
