@@ -489,6 +489,7 @@
     const incomeChartEl = document.querySelector('#incomeChart'),
         incomeChartConfig = {
             series: [{
+                //data: [150, 180, 120, 135, 140, 160, 175, 190]
                 data: [24, 21, 30, 22, 42, 26, 35, 29]
             }],
             chart: {
@@ -550,7 +551,7 @@
                 }
             },
             xaxis: {
-                categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                categories: ['', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
                 axisBorder: {
                     show: false
                 },
