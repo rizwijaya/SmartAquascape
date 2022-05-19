@@ -45,7 +45,8 @@ func Init(db *gorm.DB) *gin.Engine {
 	// Device
 	
 	// Website
-	router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
+	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
+	router.GET("/dashboard", userView.Dashboard)
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
