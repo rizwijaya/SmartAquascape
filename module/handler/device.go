@@ -9,6 +9,7 @@ import (
 type DeviceHandler interface {
 	ViewDataDevice(c *gin.Context)
 	NewDevice(c *gin.Context)
+	GetAllTemperature(c *gin.Context)
 }
 
 type deviceHandler struct {
@@ -25,4 +26,8 @@ func (h *deviceHandler) ViewDataDevice(c *gin.Context) {
 
 func (h *deviceHandler) NewDevice(c *gin.Context) {
 	h.deviceService.GetAllDevice()
+}
+
+func (h *deviceHandler) GetAllTemperature(c *gin.Context){
+
 }
