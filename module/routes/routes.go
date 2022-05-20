@@ -25,6 +25,7 @@ func Init(db *gorm.DB) *gin.Engine {
 	deviceService := device.NewService(deviceRepository)
 	//Load Handler
 	userHandler := handler.NewUserHandler(userService)
+	//deviceHandler := handler.NewDeviceHandler(deviceService)
 	//Load View
 	deviceView := view.NewDeviceView(deviceService)
 	userView := view.NewUserView(userService)
@@ -43,6 +44,8 @@ func Init(db *gorm.DB) *gin.Engine {
 	router.POST("/login", userHandler.Login)
 	router.GET("/logout", userHandler.Logout)
 	// Device
+	router.GET("/getalldata", deviceView.MonitoringDevice)
+
 	
 	// Website
 	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)

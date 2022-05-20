@@ -48,24 +48,7 @@ func (h *deviceView) ControlDevice(c *gin.Context) {
 			"page":       "controldevice",
 			"notifikasi": session.Flashes(),
 			"device":     device,
-		})
-	} else {
-		//kawasan := fmt.Sprintf("%v", session.Get("kawasan"))
-		// device, err := h.deviceService.GetDeviceKawasan(kawasan) // Get device by id user
-		// if err != nil {
-		// 	c.HTML(http.StatusInternalServerError, "error.html", nil)
-		// 	return
-		// }
-		c.HTML(http.StatusOK, "controldevice", gin.H{
-			"UserID":     session.Get("userID"),
-			"UserName":   session.Get("userName"),
-			"Role":       session.Get("Role"),
-			"title":      "Kendali Jarak Jauh",
-			"page":       "controldevice",
-			"notifikasi": session.Flashes(),
-			//"device":     device
-		})
-	}
+		})}
 }
 
 func (h *deviceView) ControllingDevice(c *gin.Context) {
@@ -75,4 +58,36 @@ func (h *deviceView) ControllingDevice(c *gin.Context) {
 	// id, _ := strconv.Atoi(idParam)
 
 	h.ControlDevice(c)
+}
+
+func (h *deviceView) MonitoringDevice(c *gin.Context) {
+	session := sessions.Default(c)
+	userID := session.Get("userID")
+
+	if userID == nil {
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
+
+	if userID == 1 {
+		temperature, err1 := h.deviceService.GetAllTemperatures()
+		turbidity, err2 := h.deviceService.GetAllTurbidity()
+		water_level, err3 := h.deviceService.GetAllWaterLevel()
+		if err1 != nil || err2 != nil || err3 != nil {
+			c.HTML(http.StatusInternalServerError, "error.html", nil)
+			return
+		}
+
+		c.HTML(http.StatusOK, "dashboard", gin.H{
+			"UserID":      session.Get("userID"),
+			"UserName":    session.Get("userName"),
+			"Role":        session.Get("Role"),
+			"title":       "Monitoring Jarak Jauh",
+			"page":        "dashboard",
+			"temperature": temperature,
+			"turbidity":   turbidity,
+			"water_level": water_level,
+		})
+	}
+
 }
