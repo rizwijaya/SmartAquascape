@@ -113,6 +113,7 @@ void getDataSensor() {
   float temp = TempAquscape();
   float turb = Turbidity();
   data2 = "1:"+String(waterL)+":"+String(temp)+":"+String(turb);
+  //Serial.println(data2);
   sendData(data2);
 }
 
@@ -136,22 +137,26 @@ void runFeeder(){
 }
 
 void cekData(String rec) {
-  if(strcmp(rec.c_str(), "monitoring")) {
-    getDataSensor();
-  } else if(strcmp(rec.c_str(), "feeder")) {
-    runFeeder();
+  if (data.length() > 0){
+    //Serial.print(rec);
+    if(strcmp(rec.c_str(), "monitoring")) {
+      getDataSensor();
+    } else if(strcmp(rec.c_str(), "feeder")) {
+      runFeeder();
+    }
   }
 }
 
-void receiveData() {
+void recData() {
+  //data = " ";
   while(Serial2.available() > 0){
-    delay(10);
+    delay(50);
     char d = Serial2.read();
     data += d;
   }
   if (data.length() > 0){
-    strcpy(rec.c_str(), data.c_str());
-    cekData(rec);
+    //Serial.println(data);
+    cekData(data);
   }
 }
 
@@ -166,6 +171,7 @@ void viewData() {
 }
 
 void loop() {
+  Serial.println("Ini Arduino Uno");
   viewData();
-  receiveData();
+  recData();
 }

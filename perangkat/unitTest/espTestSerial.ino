@@ -10,7 +10,8 @@ void loop() {
 // berikut data yang dibaca dari serial monitor sendiri, kemudian dikirim ke perangkat lain
   while(Serial.available() > 0){
   delay(10);
-  char d = Serial.read();
+  //char d = Serial.read();
+  char d = "monitoring";
   data += d;
 }
 if (data.length() > 0){
