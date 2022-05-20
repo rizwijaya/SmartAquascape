@@ -76,7 +76,6 @@ func (h *userHandler) Login(c *gin.Context) {
 	session.Set("userID", user.Id_users)
 	session.Set("userName", user.Nama)
 	session.Set("Role", user.Id_role)
-	session.Set("kawasan", user.Id_Kawasan)
 	session.Save()
 
 	c.Redirect(http.StatusFound, "/dashboard")
