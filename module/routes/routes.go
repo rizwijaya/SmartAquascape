@@ -43,7 +43,8 @@ func Init(db *gorm.DB) *gin.Engine {
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
-	router.GET("/dashboard", deviceView.MonitoringDevice)
+	//router.GET("/dashboard", deviceView.MonitoringDevice)
+	router.GET("/dashboard", userView.Dashboard)
 	
 	// Routing API Service
 	api := router.Group("/api/v1")

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 #brightness-range {
     width: 100%;
     -webkit-appearance: none;

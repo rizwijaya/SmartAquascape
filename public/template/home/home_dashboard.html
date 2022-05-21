@@ -22,7 +22,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <!-- Welcome Statement -->
-                            <div class="col-lg-6 mb-4 order-0">
+                            <div class="col-lg-6 order-0">
                                 <div class="card">
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-7">
@@ -95,7 +95,7 @@
                             </div> -->
 
                             <!-- Water Level -->
-                            <div class="col-lg-3 mb-5">
+                            <div class="col-lg-6 ">
                                 <div class="card mb-5">
                                     <div class="ms-n1 pt-1">
                                         <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
@@ -124,30 +124,71 @@
                             <!-- Water Level -->
 
                             <!-- Fish Feeder -->
-                            <div class="col-lg-3 mb-5">
+                            <div class="col-12 mb-4 mt-n4">
                                 <div class="card mb-5">
                                     <div class="ms-n1 pt-1">
                                         <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
                                           <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
                                           <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
-                                          <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                                             <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
                                           <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
                                           </g>
                                       </svg>
                                     </div>
-                                    <div class="card-body mb-3">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                        </div>
-                                        <div class="row justify-content-center">
+                                    <form action="">
+                                        <div class="card-body mb-3">
+                                            <div class="card-title d-flex align-items-start justify-content-between">
+                                            </div>
                                             <div class="col">
                                                 <h5 class="d-block mb-1">Fish Feeder</h5>
                                             </div>
-                                            <div class="col">
-                                                <div id="waterLevelChart"></div>
+
+                                            <div class="col-xl  my-4">
+                                                <div class="nav-align-top mb-4">
+                                                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                                                        <li class="nav-item">
+                                                            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true">
+                                                                <i class='bx bxs-stopwatch'></i>Automatic Control Feed
+                                                        </button>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile" aria-selected="false">
+                                                                <i class='bx bxs-wrench'></i> Manual Control Feed
+                                                      </button>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                                                            <div class="col">
+                                                                <div class="mb-3 row justify-content-center">
+                                                                    <label for="html5-time-input" class="col-md-2 col-form-label">Feed Time</label>
+                                                                    <div class="col-md-8">
+                                                                        <input class="form-control" type="time" id="html5-time-input" />
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <button type="button" class="btn btn-icon btn-outline-secondary">
+                                                                            <span class="tf-icons bx bx-bell"></span>
+                                                                          </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                                                            <h5 class="text-light fw-semibold">Beri pakan ikan sekarang</h5>
+                                                            <div class="d-grid gap-2 col-lg-6 mx-auto">
+                                                                <button class="btn btn-primary btn-lg" type="button">Kasih</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
+
+
+
+
                                         </div>
-                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
                             <!-- Fish Feeder -->
@@ -224,7 +265,7 @@
                                                 <div class="text-center">
                                                 </div>
                                             </div>
-                                            <div id="actualTempCh"></div>
+                                            <div id="actualTempChart"></div>
                                             <div class="text-center fw-semibold pt-3 mb-2">Actual Temperature</div>
 
                                             <div class="row d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-center">
