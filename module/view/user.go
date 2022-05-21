@@ -19,8 +19,14 @@ func NewUserView(userService user.Service) *userView {
 }
 
 func (h *userView) Login(c *gin.Context) {
+	var user user.LoginInput
+	h.userService.Login(user)
+
 	c.HTML(http.StatusOK, "login", gin.H{
 		"title": "SmartAquascape Login",
+		"page": "login",
+		"email": user.Email,
+		"password": user.Password,
 		"data":  1})
 }
 
@@ -32,7 +38,7 @@ func (h *userView) Register(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "register", gin.H{
 		"title": "SmartAquascape Register",
-		"nama": ""})
+		"nama":  ""})
 }
 
 func (h *userView) Dashboard(c *gin.Context) {
