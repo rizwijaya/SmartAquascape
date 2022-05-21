@@ -2,6 +2,7 @@ package user
 
 import (
 	"errors"
+	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -49,13 +50,15 @@ func (s *service) Login(input LoginInput) (User, error) {
 	}
 
 	if user.Id_users == 0 {
-		return user, errors.New("No user found on that email")
+		return user, errors.New("no user found on that email")
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
 		return user, err
 	}
+
+	fmt.Println(&user)
 
 	return user, nil
 }
