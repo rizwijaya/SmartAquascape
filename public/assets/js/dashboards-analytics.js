@@ -12,10 +12,10 @@
      axisColor = config.colors.axisColor;
      borderColor = config.colors.borderColor;
  
-     // Total Revenue Report Chart - Bar Chart
+     // Historical Temperature Chart - Bar Chart
      // --------------------------------------------------------------------
-     const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
-         totalRevenueChartOptions = {
+     const tempChartEl = document.querySelector('#tempChart'),
+         tempChartOptions = {
              series: [{
                      name: '2021',
                      data: [18, 7, 15, 29, 18, 12, 9]
@@ -267,15 +267,15 @@
                  }
              }
          };
-     if (typeof totalRevenueChartEl !== undefined && totalRevenueChartEl !== null) {
-         const totalRevenueChart = new ApexCharts(totalRevenueChartEl, totalRevenueChartOptions);
-         totalRevenueChart.render();
+     if (typeof tempChartEl !== undefined && tempChartEl !== null) {
+         const tempChart = new ApexCharts(tempChartEl, tempChartOptions);
+         tempChart.render();
      }
  
-     // Growth Chart - Radial Bar Chart
+     // Actual Time Chart Temperature - Radial Bar Chart
      // --------------------------------------------------------------------
-     const growthChartEl = document.querySelector('#growthChart'),
-         growthChartOptions = {
+     const actualTempChartEl = document.querySelector('#actualTempChart'),
+         actualTempChartOptions = {
              series: [23],
              labels: ['Celcius'],
              chart: {
@@ -348,9 +348,9 @@
                  }
              }
          };
-     if (typeof growthChartEl !== undefined && growthChartEl !== null) {
-         const growthChart = new ApexCharts(growthChartEl, growthChartOptions);
-         growthChart.render();
+     if (typeof actualTempChartEl !== undefined && actualTempChartEl !== null) {
+         const actualTempChart = new ApexCharts(actualTempChartEl, actualTempChartOptions);
+         actualTempChart.render();
      }
  
      // water level chart
@@ -567,8 +567,8 @@
  
      // Income Chart - Area chart
      // --------------------------------------------------------------------
-     const incomeChartEl = document.querySelector('#incomeChart'),
-         incomeChartConfig = {
+     const turbChartEl = document.querySelector('#turbChart'),
+         turbChartConfig = {
              series: [{
                  //data: [150, 180, 120, 135, 140, 160, 175, 190]
                  data: [24, 21, 30, 22, 42, 26, 35, 29]
@@ -656,9 +656,9 @@
                  tickAmount: 4
              }
          };
-     if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
-         const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
-         incomeChart.render();
+     if (typeof turbChartEl !== undefined && turbChartEl !== null) {
+         const turbChart = new ApexCharts(turbChartEl, turbChartConfig);
+         turbChart.render();
      }
  
      // Expenses Mini Chart - Radial Chart
