@@ -9,7 +9,7 @@ type UserFormatter struct {
 
 func FormatUser(user User, token string) UserFormatter {
 	formatter := UserFormatter{
-		ID:    user.Id_users,
+		ID:    user.UserID,
 		Nama:  user.Nama,
 		Email: user.Email,
 		Token: token,

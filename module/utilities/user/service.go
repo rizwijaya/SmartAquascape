@@ -42,14 +42,17 @@ func (s *service) RegisterUser(input RegisterUserInput) (User, error) {
 
 func (s *service) Login(input LoginInput) (User, error) {
 	email := input.Email
+	fmt.Println(email)
 	password := input.Password
+	fmt.Println(password)
 
 	user, err := s.repository.FindByEmail(email)
+	fmt.Println(user)
 	if err != nil {
 		return user, err
 	}
 
-	if user.Id_users == 0 {
+	if user.UserID == 0 {
 		return user, errors.New("no user found on that email")
 	}
 
@@ -57,8 +60,6 @@ func (s *service) Login(input LoginInput) (User, error) {
 	if err != nil {
 		return user, err
 	}
-
-	fmt.Println(&user)
 
 	return user, nil
 }

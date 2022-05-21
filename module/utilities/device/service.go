@@ -8,6 +8,7 @@ import (
 type Service interface {
 	GetAllDevice() ([]Device, error)
 	GetDeviceByID(ID int) (Device, error)
+	GetAllMonitoring() ([]Monitoring, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
 	GetOneTurbidityByID(ID string) (Turbidity, error)
@@ -31,6 +32,15 @@ func (s *service) GetAllDevice() ([]Device, error) {
 	}
 
 	return device, nil
+}
+
+func (s *service) GetAllMonitoring() ([]Monitoring, error) {
+	monitoring, err := s.repository.GetAllMonitoring()
+	if err != nil {
+		return monitoring, err
+	}
+
+	return monitoring, nil
 }
 
 func (s *service) GetDeviceByID(ID int) (Device, error) {
@@ -112,7 +122,7 @@ func (s *service) GetOneTemperatureByID(ID string) (Temperature, error) {
 	}
 
 	var check Temperature
-	if check.Data < `24`|| check.Data > `25` {
+	if check.Data < `24` || check.Data > `25` {
 		fmt.Println("Suhu air tidak normal")
 	} else if check.Data >= `24` || check.Data <= `25` {
 		fmt.Println("Suhu air normal")

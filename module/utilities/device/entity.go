@@ -40,3 +40,11 @@ type Turbidity struct {
 	CurrentTime time.Time `json:"current_time"`
 	Data        string    `json:"data"`
 }
+
+type Monitoring struct {
+	ID          string    `json:"id"`
+	Turbidity   float64   `json:"turbidity"`
+	WaterLevel  float64   `json:"water_level"`
+	Temperature float64   `json:"temperature"`
+	RequestTime time.Time `json:"request_time"`
+}

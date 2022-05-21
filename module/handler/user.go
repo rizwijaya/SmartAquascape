@@ -73,7 +73,7 @@ func (h *userHandler) Login(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	session.Set("userID", user.Id_users)
+	session.Set("userID", user.UserID)
 	session.Set("userName", user.Nama)
 	session.Set("Role", user.Id_role)
 	session.Save()

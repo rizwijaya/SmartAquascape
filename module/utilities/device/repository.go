@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type Repository interface {
 	GetAllDevice() ([]Device, error)
 	FindByID(ID int) (Device, error)
+	GetAllMonitoring() ([]Monitoring, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
 	FindTurbidityByID(ID string) (Turbidity, error)
@@ -41,6 +42,17 @@ func (r *repository) FindByID(ID int) (Device, error) {
 	}
 
 	return device, nil
+}
+
+func (r *repository) GetAllMonitoring() ([]Monitoring, error) {
+	var monitoring []Monitoring
+
+	err := r.db.Find(&monitoring).Error
+	if err != nil {
+		return monitoring, err
+	}
+
+	return monitoring, nil
 }
 
 func (r *repository) GetAllTemperatures() ([]Temperature, error) {

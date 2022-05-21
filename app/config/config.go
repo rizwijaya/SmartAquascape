@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/tkanos/gonfig"
@@ -34,7 +33,7 @@ func Init() *gorm.DB {
 	if err != nil {
 		log.Fatal(err.Error())
 	} else {
-		fmt.Println(db)
+		//fmt.Println(db)
 		log.Println("Connected to database")
 	}
 	return db

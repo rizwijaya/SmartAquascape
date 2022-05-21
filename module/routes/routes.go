@@ -30,21 +30,23 @@ func Init(db *gorm.DB) *gin.Engine {
 	deviceView := view.NewDeviceView(deviceService)
 	userView := view.NewUserView(userService)
 
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Use(cors.Default())
 
 	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
-	router.Use(sessions.Sessions("tamaskapju", cookieStore))
+	router.Use(sessions.Sessions("smart_aquascape", cookieStore))
 
 	router.HTMLRender = ManualRender("./public/template/")
 
 	// Khusus Website
-	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
 	router.GET("/login", userView.Login)
+	//router.POST("/login", userView.Login)
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
-	router.GET("/dashboard", middlewares.AllAkses(), deviceView.MonitoringDevice)
+	router.GET("/dashboard", deviceView.MonitoringDevice)
+	//router.GET("/dashboard", userView.Dashboard)
 	router.POST("/login", userHandler.Login)
 	router.GET("/logout", userHandler.Logout)
 
