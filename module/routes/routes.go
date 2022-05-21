@@ -39,23 +39,21 @@ func Init(db *gorm.DB) *gin.Engine {
 	router.HTMLRender = ManualRender("./public/template/")
 
 	// Khusus Website
-	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
 	router.GET("/login", userView.Login)
-	router.GET("/dashboard", userView.Dashboard)
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
-	router.GET("/getalldata", deviceView.MonitoringDevice)
+	router.GET("/dashboard", deviceView.MonitoringDevice)
 	
 	// Routing API Service
 	api := router.Group("/api/v1")
 	
 	// User API
-	//router.POST("/login", userHandler.Login)
-	//router.GET("/logout", userHandler.Logout)
+	router.POST("/login", userHandler.Login)
+	router.GET("/logout", userHandler.Logout)
 	api.POST("/users", userHandler.RegisterUser)
-	api.POST("/login", userHandler.Login)
-	api.POST("/logout", userHandler.Logout)
+	// api.POST("/login", userHandler.Login)
+	// api.POST("/logout", userHandler.Logout)
 	
 	// Device API
 	api.GET("/getoneturbidity", deviceHandler.GetOneTurbidity)

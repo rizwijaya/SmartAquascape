@@ -85,7 +85,6 @@ func (h *deviceHandler) GetOneWaterLevel(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": result})
 }
 
-
 func (h *deviceHandler) GetAllTurbidity(c *gin.Context) {
 
 	//userId := c.Param("id_user")

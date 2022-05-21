@@ -48,7 +48,8 @@ func (h *deviceView) ControlDevice(c *gin.Context) {
 			"page":       "controldevice",
 			"notifikasi": session.Flashes(),
 			"device":     device,
-		})}
+		})
+	}
 }
 
 func (h *deviceView) ControllingDevice(c *gin.Context) {
@@ -89,5 +90,4 @@ func (h *deviceView) MonitoringDevice(c *gin.Context) {
 			"water_level": water_level,
 		})
 	}
-
 }
