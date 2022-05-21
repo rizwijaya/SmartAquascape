@@ -40,23 +40,25 @@ func Init(db *gorm.DB) *gin.Engine {
 
 	// Routing Website Service
 	// User
-	router.GET("/login", userView.Login)
-	router.POST("/login", userHandler.Login)
-	router.GET("/logout", userHandler.Logout)
+	
 	// Device
-	router.GET("/getalldata", deviceView.MonitoringDevice)
+
 
 	
-	// Website
+	// Khusus Website
 	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
+	router.GET("/login", userView.Login)
 	router.GET("/dashboard", userView.Dashboard)
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
+	router.GET("/getalldata", deviceView.MonitoringDevice)
 	
-	//Routing API Service
+	// Routing API Service
 	api := router.Group("/api/v1")
 	api.POST("/users", userHandler.RegisterUser)
+	router.POST("/login", userHandler.Login)
+	router.GET("/logout", userHandler.Logout)
 
 	return router
 }
