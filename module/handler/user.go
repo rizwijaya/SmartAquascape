@@ -79,6 +79,8 @@ func (h *userHandler) Login(c *gin.Context) {
 	session.Save()
 
 	c.Redirect(http.StatusFound, "/dashboard")
+	response := helper.APIRespon("Login", http.StatusOK, "success", nil)
+	c.JSON(http.StatusOK, response)
 }
 
 func (h *userHandler) Logout(c *gin.Context) {

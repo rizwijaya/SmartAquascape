@@ -38,24 +38,6 @@ CREATE TABLE `deliver_time` (
 -- Table structure for table `devices`
 --
 
-CREATE TABLE `devices` (
-  `no_device` int(11) NOT NULL,
-  `id_device` varchar(255) NOT NULL,
-  `energy` varchar(255) NOT NULL,
-  `power` varchar(255) NOT NULL,
-  `voltage` varchar(255) NOT NULL,
-  `ampere` varchar(255) NOT NULL,
-  `power_f` varchar(255) NOT NULL,
-  `battery` varchar(255) NOT NULL,
-  `relay_status` int(11) NOT NULL,
-  `device_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `alarm_type` int(11) NOT NULL,
-  `device_registered` timestamp NULL DEFAULT NULL,
-  `restart_status` int(11) NOT NULL,
-  `blue_status` int(11) NOT NULL,
-  `lamp_treshold` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --
