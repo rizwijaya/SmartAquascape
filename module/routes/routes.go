@@ -25,7 +25,7 @@ func Init(db *gorm.DB) *gin.Engine {
 	deviceService := device.NewService(deviceRepository)
 	//Load Handler
 	userHandler := handler.NewUserHandler(userService)
-	//deviceHandler := handler.NewDeviceHandler(deviceService)
+	deviceHandler := handler.NewDeviceHandler(deviceService)
 	//Load View
 	deviceView := view.NewDeviceView(deviceService)
 	userView := view.NewUserView(userService)
@@ -38,25 +38,32 @@ func Init(db *gorm.DB) *gin.Engine {
 
 	router.HTMLRender = ManualRender("./public/template/")
 
-	// Routing Website Service
-	// User
-	router.GET("/login", userView.Login)
-	router.POST("/login", userHandler.Login)
-	router.GET("/logout", userHandler.Logout)
-	// Device
-	router.GET("/getalldata", deviceView.MonitoringDevice)
-
-	
-	// Website
+	// Khusus Website
 	// router.GET("/dashboard", middlewares.AllAkses(), userView.Dashboard)
+	router.GET("/login", userView.Login)
 	router.GET("/dashboard", userView.Dashboard)
 	router.GET("/device", deviceView.Index)
 	router.GET("/controldevice", middlewares.AllAkses(), deviceView.ControlDevice)
 	router.GET("/controllingdevice", middlewares.AllAkses(), deviceView.ControllingDevice)
+	router.GET("/getalldata", deviceView.MonitoringDevice)
 	
-	//Routing API Service
+	// Routing API Service
 	api := router.Group("/api/v1")
+	
+	// User API
+	//router.POST("/login", userHandler.Login)
+	//router.GET("/logout", userHandler.Logout)
 	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/login", userHandler.Login)
+	api.POST("/logout", userHandler.Logout)
+	
+	// Device API
+	api.GET("/getoneturbidity", deviceHandler.GetOneTurbidity)
+	api.GET("/getonetemperature", deviceHandler.GetOneTemperature)
+	api.GET("/getonewaterlevel", deviceHandler.GetOneWaterLevel)
+	api.GET("/getallturbidity", deviceHandler.GetAllTurbidity)
+	api.GET("/getalltemperature", deviceHandler.GetAllTemperature)
+	api.GET("/getallwaterlevel", deviceHandler.GetAllWaterLevel)
 
 	return router
 }
