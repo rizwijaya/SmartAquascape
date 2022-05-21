@@ -10,9 +10,9 @@ type Service interface {
 	GetDeviceByID(ID int) (Device, error)
 	GetAllTemperatures() ([]Temperature, error)
 	GetAllWaterLevel() ([]WaterLevel, error)
-	GetOneTurbidityByID(ID int) (Turbidity, error)
-	GetOneWaterLevelByID(ID int) (WaterLevel, error)
-	GetOneTemperatureByID(ID int) (Temperature, error)
+	GetOneTurbidityByID(ID string) (Turbidity, error)
+	GetOneWaterLevelByID(ID string) (WaterLevel, error)
+	GetOneTemperatureByID(ID string) (Temperature, error)
 	GetAllTurbidity() ([]Turbidity, error)
 }
 
@@ -73,7 +73,7 @@ func (s *service) GetAllTurbidity() ([]Turbidity, error) {
 	return turbidity, nil
 }
 
-func (s *service) GetOneTurbidityByID(ID int) (Turbidity, error) {
+func (s *service) GetOneTurbidityByID(ID string) (Turbidity, error) {
 	turbidity, err := s.repository.FindTurbidityByID(ID)
 	if err != nil {
 		return turbidity, err
@@ -89,7 +89,7 @@ func (s *service) GetOneTurbidityByID(ID int) (Turbidity, error) {
 	return turbidity, nil
 }
 
-func (s *service) GetOneWaterLevelByID(ID int) (WaterLevel, error) {
+func (s *service) GetOneWaterLevelByID(ID string) (WaterLevel, error) {
 	water_level, err := s.repository.FindWaterLevelByID(ID)
 	if err != nil {
 		return water_level, err
@@ -105,7 +105,7 @@ func (s *service) GetOneWaterLevelByID(ID int) (WaterLevel, error) {
 	return water_level, nil
 }
 
-func (s *service) GetOneTemperatureByID(ID int) (Temperature, error) {
+func (s *service) GetOneTemperatureByID(ID string) (Temperature, error) {
 	temperature, err := s.repository.FindTemperatureByID(ID)
 	if err != nil {
 		return temperature, err
