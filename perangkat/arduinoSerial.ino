@@ -121,22 +121,23 @@ void getDataSensor() {
 }
 
 void runFeeder(){
-  fwrite(1,0,0,0);
-  //delay(5);
-  fwrite(1,1,0,0);
-  //delay(5);
-  fwrite(0,1,0,0);
-  //delay(5);
-  fwrite(0,1,1,0);
-  //delay(5);
-  fwrite(0,0,1,0);
-  //delay(5);
-  fwrite(0,0,1,1);
-  //delay(5);
-  fwrite(0,0,0,1);
-  //delay(5);
-  fwrite(1,0,0,1);
-  //delay(5);
+  Serial.println("Harusnya servo jalan");
+  // fwrite(1,0,0,0);
+  // //delay(5);
+  // fwrite(1,1,0,0);
+  // //delay(5);
+  // fwrite(0,1,0,0);
+  // //delay(5);
+  // fwrite(0,1,1,0);
+  // //delay(5);
+  // fwrite(0,0,1,0);
+  // //delay(5);
+  // fwrite(0,0,1,1);
+  // //delay(5);
+  // fwrite(0,0,0,1);
+  // //delay(5);
+  // fwrite(1,0,0,1);
+  // //delay(5);
 }
 
 void cekData(String data) {
