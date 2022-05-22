@@ -2,6 +2,7 @@ package view
 
 import (
 	"SmartAquascape/module/utilities/device"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -62,48 +63,49 @@ func (h *deviceView) ControllingDevice(c *gin.Context) {
 }
 
 func (h *deviceView) MonitoringDevice(c *gin.Context) {
-	// session := sessions.Default(c)
-	// userID := session.Get("userID")
+	session := sessions.Default(c)
+	userID := session.Get("userID")
 
-	// if userID == nil {
+	 if userID == nil {
 	// 	c.Redirect(http.StatusFound, "/login")
 	// 	return
 	// }
 
 	//if userID == 1 {
-		// temperature, err1 := h.deviceService.GetAllTemperatures()
-		// turbidity, err2 := h.deviceService.GetAllTurbidity()
-		// water_level, err3 := h.deviceService.GetAllWaterLevel()
-		// if err1 != nil || err2 != nil || err3 != nil {
-		// 	c.HTML(http.StatusInternalServerError, "error.html", nil)
-		// 	return
-		// }
+	// temperature, err1 := h.deviceService.GetAllTemperatures()
+	// turbidity, err2 := h.deviceService.GetAllTurbidity()
+	// water_level, err3 := h.deviceService.GetAllWaterLevel()
+	// if err1 != nil || err2 != nil || err3 != nil {
+	// 	c.HTML(http.StatusInternalServerError, "error.html", nil)
+	// 	return
+	// }
 
-		// c.HTML(http.StatusOK, "dashboard", gin.H{
-		// 	"UserID":      session.Get("userID"),
-		// 	"UserName":    session.Get("userName"),
-		// 	"Role":        session.Get("Role"),
-		// 	"title":       "Monitoring Jarak Jauh",
-		// 	"page":        "dashboard",
-		// 	"temperature": temperature,
-		// 	"turbidity":   turbidity,
-		// 	"water_level": water_level,
-		// })
+	// c.HTML(http.StatusOK, "dashboard", gin.H{
+	// 	"UserID":      session.Get("userID"),
+	// 	"UserName":    session.Get("userName"),
+	// 	"Role":        session.Get("Role"),
+	// 	"title":       "Monitoring Jarak Jauh",
+	// 	"page":        "dashboard",
+	// 	"temperature": temperature,
+	// 	"turbidity":   turbidity,
+	// 	"water_level": water_level,
+	// })
 
-		monitoring, err := h.deviceService.GetAllMonitoring()
-		if err != nil {
-			c.HTML(http.StatusInternalServerError, "error.html", nil)
-			return
-		}
+	monitoring, err := h.deviceService.GetAllMonitoring()
+	fmt.Println("ambil data ", monitoring)
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
 
-		c.HTML(http.StatusOK, "dashboard", gin.H{
-			//"UserID":      session.Get("userID"),
-			//"UserName":    session.Get("userName"),
-			//"Role":        session.Get("Role"),
-			"title":       "Monitoring Jarak Jauh",
-			"page":        "dashboard",
-			"monitoring": monitoring,
-		})
-	//}
+	c.HTML(http.StatusOK, "dashboard", gin.H{
+		// "UserID":      session.Get("userID"),
+		 "username":   session.Get("userName"),
+		// "Role":       session.Get("Role"),
+		"title":      "monitoring",
+		"page":       "dashboard",
+		"monitoring": monitoring,
+	})
+	}
 
 }
