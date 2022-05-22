@@ -7,7 +7,7 @@ from db import dataChecker as dataChecker
 
 broker = 'mqtt.antares.id'
 port = 1883
-topic = "/oneM2M/resp/antares-cse/0b6b7781f24344d5:b0ec30902bc42bdf/json"
+topic = "/oneM2M/resp/antares-cse/9fb52249c593c66d:b719370dce7d93b9/json"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 
