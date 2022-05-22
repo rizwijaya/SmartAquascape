@@ -11,9 +11,9 @@
 
 SoftwareSerial Serial2(13, 19); // 2 rx, 3 tx
 
-String data, rec, data2;
+String data, data2;
 int trigPin = 4, echoPin = 3, tempPin = 12, buzzPin = 11, ledPin = 2;
-const int rs = 10, en = 9, d4 = 8, d5 = 7, d6 = 6, d7 = 5;
+const int rs = 10, en = 9, d4 = 5, d5 = 6, d6 = 7, d7 = 8;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 OneWire oneWire(tempPin);
@@ -106,52 +106,63 @@ float Turbidity() {
 
 void sendData(String data2) {
   Serial2.print(data2);
+  //data = "";
+  //data2 = "";
 }
 
 void getDataSensor() {
+  data2 = "";
   float waterL = WaterLevel();
-  float temp = TempAquascape();
+  float temp = TempAquscape();
   float turb = Turbidity();
-  data2 = "1:"+String(waterL)+":"+String(temp)+":"+String(turb);
+  data2 = "1:"+String(waterL)+":"+String(temp)+":"+String(turb)+";";
+  //Serial.println(data2);
   sendData(data2);
 }
 
 void runFeeder(){
-  write(1,0,0,0);
+  fwrite(1,0,0,0);
   //delay(5);
-  write(1,1,0,0);
+  fwrite(1,1,0,0);
   //delay(5);
-  write(0,1,0,0);
+  fwrite(0,1,0,0);
   //delay(5);
-  write(0,1,1,0);
+  fwrite(0,1,1,0);
   //delay(5);
-  write(0,0,1,0);
+  fwrite(0,0,1,0);
   //delay(5);
-  write(0,0,1,1);
+  fwrite(0,0,1,1);
   //delay(5);
-  write(0,0,0,1);
+  fwrite(0,0,0,1);
   //delay(5);
-  write(1,0,0,1);
+  fwrite(1,0,0,1);
   //delay(5);
 }
 
-void cekData(String rec) {
-  if(Strcmp(rec, "monitoring")) {
-    getDataSensor();
-  } else if(Strcmp(rec, "feeder")) {
-    runFeeder();
+void cekData(String data) {
+  if (data.length() > 0){
+    //Serial.print(data);
+    if(strcmp(data.c_str(), "monitoring")) {
+      Serial.print(data);
+      getDataSensor();
+      data = "";
+    } else if(strcmp(data.c_str(), "feeder")) {
+      runFeeder();
+      Serial.println("Feeder Running"); //Program debug feeder
+    }
   }
 }
 
-void receiveData() {
+void recData() {
   while(Serial2.available() > 0){
-    delay(10);
+    delay(50);
     char d = Serial2.read();
     data += d;
   }
   if (data.length() > 0){
-    strcpy(rec, data);
-    cekData(rec);
+    //Serial.println(data);
+    cekData(data);
+    //data = "";
   }
 }
 
@@ -166,6 +177,7 @@ void viewData() {
 }
 
 void loop() {
+  Serial.println("\nIni Arduino Uno");
   viewData();
-  receiveData();
+  recData();
 }
