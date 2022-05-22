@@ -27,14 +27,16 @@ int sts_FeederControl = 2; //default Manual Control
 const char *ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 7 * 3600;
 const int daylightOffset_sec = 0;
-unsigned long sts_time = 10;
+unsigned long sts_time = 1;
 unsigned long previousTimeMonitoring = 0;
 
 void setup() {
   Serial.begin(9600);
   Serial2.begin(9600);
-  antares.setDebug(false);
+  antares.setDebug(true);
+  antaresAPI.setDebug(true);
   antares.wifiConnection(WIFISSID,PASSWORD);  // Mencoba untuk menyambungkan ke WiFi
+  antaresAPI.wifiConnection(WIFISSID,PASSWORD);
   antares.setMqttServer();  // Inisiasi server MQTT Antares
   
   //inisialisasi variabel
@@ -111,15 +113,18 @@ void getTimeMonitoring() {
   // antares.publish(applicationName, deviceControl);
   //Tangkap Respon Request Data Monitoring
   antaresAPI.get(applicationName, TimeMonitoring);
+  //Serial.println(antaresAPI.getResponse());
+  Serial.println(antaresAPI.getInt("header"));
   if(antaresAPI.getInt("header") == 4) { //header 4 trigger by sensor
     sts_time = antaresAPI.getInt("waktuPengiriman"); //Dalam menit  
   }
 }
 
 void MonitoringSync() {
+  Serial.println("Monitoring Sync" + String(sts_time));
   unsigned long Mon_Sync = millis();
-  unsigned long TimeSync = sts_time * 60000; //Konversi menit to milisecond
-  Serial.println(Mon_Sync);
+  unsigned long TimeSync = sts_time * 30000;//60000; //Konversi menit to milisecond
+  //Serial.println(Mon_Sync);
   if ((unsigned long)(Mon_Sync - previousTimeMonitoring) >= TimeSync) {
     dataMonitoring();
     previousTimeMonitoring = Mon_Sync;
@@ -207,10 +212,10 @@ void loop() {
   getTimeMonitoring();
   MonitoringSync();
    
-  statusFeeder();
-  if(sts_FeederControl == 1) { //Status aktif untuk Auto controlling
-    autoFeeder();
-  } else if(sts_FeederControl == 2) { //Status aktif untuk Manual controlling
-    manualFeeder();
-  }
+  // statusFeeder();
+  // if(sts_FeederControl == 1) { //Status aktif untuk Auto controlling
+  //   autoFeeder();
+  // } else if(sts_FeederControl == 2) { //Status aktif untuk Manual controlling
+  //   manualFeeder();
+  // }
 }
