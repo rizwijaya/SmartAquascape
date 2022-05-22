@@ -120,23 +120,39 @@ void getDataSensor() {
   sendData(data2);
 }
 
+void write(int a,int b,int c,int d){
+  digitalWrite(m1,a);
+  digitalWrite(m2,b);
+  digitalWrite(m3,c);
+  digitalWrite(m4,d);
+}
+
+void onestep(){
+  write(1,0,0,0);
+  delay(5);
+  write(1,1,0,0);
+  delay(5);
+  write(0,1,0,0);
+  delay(5);
+  write(0,1,1,0);
+  delay(5);
+  write(0,0,1,0);
+  delay(5);
+  write(0,0,1,1);
+  delay(5);
+  write(0,0,0,1);
+  delay(5);
+  write(1,0,0,1);
+  delay(5);
+}
+
 void runFeeder(){
-  fwrite(1,0,0,0);
-  //delay(5);
-  fwrite(1,1,0,0);
-  //delay(5);
-  fwrite(0,1,0,0);
-  //delay(5);
-  fwrite(0,1,1,0);
-  //delay(5);
-  fwrite(0,0,1,0);
-  //delay(5);
-  fwrite(0,0,1,1);
-  //delay(5);
-  fwrite(0,0,0,1);
-  //delay(5);
-  fwrite(1,0,0,1);
-  //delay(5);
+  int i;
+  i=0;
+  while(i<rotation){
+    onestep();
+    i++;
+  }
 }
 
 void cekData(String data) {
