@@ -2,12 +2,9 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
+#include <Servo.h>
 #define turbPin A0
 #define m1 15
-#define m2 16
-#define m3 17
-#define m4 18
-#define rotation 512
 
 SoftwareSerial Serial2(13, 19); // 2 rx, 3 tx
 
@@ -15,6 +12,8 @@ String data, data2;
 int trigPin = 4, echoPin = 3, tempPin = 12, buzzPin = 11, ledPin = 2;
 const int rs = 10, en = 9, d4 = 5, d5 = 6, d6 = 7, d7 = 8;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+Servo servoku;
+int pos = 0;
 
 OneWire oneWire(tempPin);
 DallasTemperature sensors(&oneWire);
@@ -31,9 +30,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   pinMode(buzzPin, OUTPUT);
   pinMode(m1, OUTPUT);
-  pinMode(m2, OUTPUT);
-  pinMode(m3, OUTPUT);
-  pinMode(m4, OUTPUT);
+  servoku.attach(m1);
   lcd.begin(16, 2);
 }
 
@@ -78,6 +75,7 @@ float round_to_dp( float in_value, int decimal_place ) {
   return in_value;
 }
 
+
 float Turbidity() {
   float volt = 0;
   float ntu;
@@ -120,38 +118,14 @@ void getDataSensor() {
   sendData(data2);
 }
 
-void write(int a,int b,int c,int d){
-  digitalWrite(m1,a);
-  digitalWrite(m2,b);
-  digitalWrite(m3,c);
-  digitalWrite(m4,d);
-}
 
-void onestep(){
-  write(1,0,0,0);
-  delay(5);
-  write(1,1,0,0);
-  delay(5);
-  write(0,1,0,0);
-  delay(5);
-  write(0,1,1,0);
-  delay(5);
-  write(0,0,1,0);
-  delay(5);
-  write(0,0,1,1);
-  delay(5);
-  write(0,0,0,1);
-  delay(5);
-  write(1,0,0,1);
-  delay(5);
-}
+
 
 void runFeeder(){
-  int i;
-  i=0;
-  while(i<rotation){
-    onestep();
-    i++;
+    for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    servoku.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15ms for the servo to reach the position
   }
 }
 
