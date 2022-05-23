@@ -4,9 +4,11 @@ import (
 	"SmartAquascape/app/helper"
 	"SmartAquascape/module/utilities/device"
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +25,7 @@ type DeviceHandler interface {
 	ManualFeeder(c *gin.Context)
 	StatusFeeder(c *gin.Context)
 	DeliveryTime(c *gin.Context)
+	AutoFeeder(c *gin.Context)
 }
 
 type deviceHandler struct {
@@ -219,6 +222,50 @@ func (h *deviceHandler) DeliveryTime(c *gin.Context) {
 		Timeout: timeout,
 	}
 	req, err := http.NewRequest("POST", "https://platform.antares.id:8443/~/antares-cse/antares-id/smartAquascape/TimeMonitoring", bytes.NewBuffer([]byte(data)))
+	req.Header.Set("X-M2M-Origin", "9fb52249c593c66d:b719370dce7d93b9")
+	req.Header.Set("Content-Type", "application/json;ty=4")
+	req.Header.Set("Accept", "application/json")
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	//defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(string(body))
+	c.Redirect(http.StatusFound, "/dashboard")
+}
+
+func (h *deviceHandler) AutoFeeder(c *gin.Context) {
+	var input device.AutoF
+
+	err := c.ShouldBind(&input)
+	if err != nil {
+		fmt.Println("Error")
+		c.Redirect(http.StatusFound, "/dashboard")
+		return
+	}
+	waktuPertama := strings.Split(input.WaktuPertama, ":")
+	waktuKedua := strings.Split(input.WaktuKedua, ":")
+	waktuKetiga := strings.Split(input.WaktuKetiga, ":")
+
+	data := "\r\n{\r\n  \"m2m:cin\": {\r\n    \"con\": \r\n      \"{\r\n      \t \\\"header\\\":12,\r\n         \\\"waktuPertama\\\":\\\"" + waktuPertama[0] + waktuPertama[1] + "\\\",\r\n         \\\"waktuKedua\\\":\\\"" + waktuKedua[0] + waktuKedua[1] + "\\\",\r\n         \\\"waktuKetiga\\\":\\\"" + waktuKetiga[0] + waktuKetiga[1] + "\\\"\r\n      }\"\r\n    }\r\n}"
+	//fmt.Println(data)
+	timeout := time.Duration(5 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+	req, err := http.NewRequest("POST", "https://platform.antares.id:8443/~/antares-cse/antares-id/smartAquascape/Auto-Feeder", bytes.NewBuffer([]byte(data)))
 	req.Header.Set("X-M2M-Origin", "9fb52249c593c66d:b719370dce7d93b9")
 	req.Header.Set("Content-Type", "application/json;ty=4")
 	req.Header.Set("Accept", "application/json")
