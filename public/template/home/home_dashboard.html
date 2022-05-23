@@ -4,9 +4,6 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <!-- Menu -->
-            {{ template "menu" . }}
-            <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
@@ -27,7 +24,7 @@
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-7">
                                             <div class="card-body">
-                                                <h5 class="card-title text-primary">Selamat Datang {{ .UserName }}! 🎉</h5>
+                                                <h5 class="card-title text-primary">Selamat Datang {{ .username }}! 🎉</h5>
                                                 <p class="mb-4">
                                                     Mudik tenang dengan<span class="fw-bold"> SmartAquascape</span>
                                                 </p>
@@ -43,59 +40,8 @@
                             </div>
                             <!-- Welcome Statement -->
 
-                            <!-- <div class="col-lg-4 col-md-4 order-1">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-                                                    </div>
-                                                    <div class="dropdown">
-                                                        <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <span class="fw-semibold d-block mb-1">Efisiensi Biaya</span>
-                                                <h3 class="card-title mb-2"></h3>
-                                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded" />
-                                                    </div>
-                                                    <div class="dropdown">
-                                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <span>Cost Perangkat</span>
-                                                <h5 class="card-title text-nowrap mb-1"></h5>
-                                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <!-- Water Level -->
-                            <div class="col-lg-6 ">
+                            <div class="col-lg-3 ">
                                 <div class="card mb-5">
                                     <div class="ms-n1 pt-1">
                                         <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
@@ -109,7 +55,7 @@
                                     <div class="card-body mb-3">
                                         <div class="card-title d-flex align-items-start justify-content-between">
                                         </div>
-                                        <div class="row justify-content-center">
+                                        <div class="row justify-content-center mb-2">
                                             <div class="col">
                                                 <h5 class="d-block mb-1">Water Level </h5>
                                             </div>
@@ -122,6 +68,40 @@
                                 </div>
                             </div>
                             <!-- Water Level -->
+
+                            <!-- Interval Data Time -->
+                            <div class="col-lg-3 order-1 mb-4">
+                                <div class="card mb-4">
+                                    <div class="ms-n1 pt-1">
+                                        <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+                                          <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                                          <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                                          <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                                          <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+                                          </g>
+                                      </svg>
+                                    </div>
+                                  <h5 class="card-header">Interval Time Send Data</h5>
+                                  <div class="card-body">
+                                    <div>
+                                        <form action="">
+                                            <div class="col row justify-content-center">
+                                                <div class="col-10 mb-2 row justify-content-center">
+                                                        <input class="form-control" type="number" id="html5-time-input" />
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button type="button" class="btn btn-icon btn-outline-secondary">
+                                                            <span class="tf-icons bx bx-bell"></span>
+                                                          </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Interval Data Time -->                            
 
                             <!-- Fish Feeder -->
                             <div class="col-12 mb-4 mt-n4">
@@ -161,7 +141,13 @@
                                                             <div class="col">
                                                                 <div class="mb-3 row justify-content-center">
                                                                     <label for="html5-time-input" class="col-md-2 col-form-label">Feed Time</label>
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md">
+                                                                        <input class="form-control" type="time" id="html5-time-input" />
+                                                                    </div>
+                                                                    <div class="col-md">
+                                                                        <input class="form-control" type="time" id="html5-time-input" />
+                                                                    </div>
+                                                                    <div class="col-md">
                                                                         <input class="form-control" type="time" id="html5-time-input" />
                                                                     </div>
                                                                     <div class="col-md-2">
@@ -175,7 +161,7 @@
                                                         <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
                                                             <h5 class="text-light fw-semibold">Beri pakan ikan sekarang</h5>
                                                             <div class="d-grid gap-2 col-lg-6 mx-auto">
-                                                                <button class="btn btn-primary btn-lg" type="button">Kasih</button>
+                                                                <a class="btn btn-primary btn-lg" href="/manualfeeder" type="button">Kasih</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -188,64 +174,111 @@
 
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                             <!-- Fish Feeder -->
 
-                            <!-- Turbidity Monitor -->
-                            <div class="col-md-6 col-lg-4 order-1 mb-4 mt-n5">
-                                <div class="card h-100">
-                                    <div class="ms-n1 pt-1">
-                                        <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
-                                          <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
-                                          <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
-                                          <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
-                                          <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
-                                          </g>
-                                      </svg>
+                            <div class="row justify-content-center">
+                                <!-- Turbidity Monitor -->
+                                <div class="col-md-4 col-lg-4 order-1 ">
+                                    <div class="card h-100">
+                                        <div class="ms-n1 pt-1">
+                                            <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+                                              <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                                              <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                                              <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                                              <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+                                              </g>
+                                          </svg>
+                                        </div>
+                                        <h5 class="card-header m-0 me-2">Turbidity Monitor</h5>
+                                        <div class="card-body px-0">
+                                            <div class="tab-content p-0">
+                                                <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                                                    <div class="d-flex p-4 pt-3">
+                                                        <div class="d-flex">
+                                                            <div class="me-2">
+                                                                <span class="badge bg-label-primary p-2"><i class="bi bi-stars h4"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <small class="text-muted d-block">Water Quality</small>
+                                                            <div class="d-flex align-items-center">
+                                                                <h6 class="mb-0 me-1">200 ppM</h6>
+                                                                <small class="text-success fw-semibold">
+                                                                    <i class="bx bx-chevron-up"></i>
+                                                                    Normal
+                                                                </small>
+                                                                <small class="text-danger fw-semibold">
+                                                                    <i class="bx bx-chevron-down"></i>
+                                                                    Abnormal
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="turbChart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h5 class="card-header m-0 me-2 pb-1">Turbidity Monitor</h5>
-                                    <div class="card-body px-0">
-                                        <div class="tab-content p-0">
-                                            <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                                                <div class="d-flex p-4 pt-3">
+                                </div>
+                                <!-- Turbidity Monitor -->
+    
+                                <!-- Temperature Monitor -->
+                                <div class="col col-lg-8 order-2 order-md-3 order-lg-2 mb-5">
+                                    <div class="card mb-5">
+                                        <div class="ms-n1 pt-1">
+                                            <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+                                              <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                                              <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                                              <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                                              <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+                                              </g>
+                                          </svg>
+                                        </div>
+                                        <div class="row row-bordered g-0">
+                                            <div class="col-md-8">
+                                                <h5 class="card-header m-0 me-2 pb-3">Temperature Monitor</h5>
+                                                <div class="mb-5" id="tempChart" class="px-2"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card-body">
+                                                    <div class="text-center">
+                                                    </div>
+                                                </div>
+                                                <div id="actualTempChart"></div>
+                                                <div class="text-center fw-semibold pt-3 mb-2">Actual Temperature</div>
+    
+                                                <div class="row d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-center">
                                                     <div class="d-flex">
                                                         <div class="me-2">
-                                                            <span class="badge bg-label-primary p-2"><i class="bi bi-stars h4"></i></span>
+                                                            <span class="badge bg-label-danger p-2"><i class="bi bi-exclamation-circle-fill"></i></span>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Abnormal </h6>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <small class="text-muted d-block">Water Quality</small>
-                                                        <div class="d-flex align-items-center">
-                                                            <h6 class="mb-0 me-1">200 ppM</h6>
-                                                            <small class="text-success fw-semibold">
-                  <i class="bx bx-chevron-up"></i>
-                  Normal
-                </small>
-                                                            <small class="text-danger fw-semibold">
-                  <i class="bx bx-chevron-down"></i>
-                  Abnormal
-                </small>
+                                                    <div class="d-flex">
+                                                        <div class="me-2">
+                                                            <span class="badge bg-label-success p-2"><i class="bi bi-check-circle-fill"></i></span>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Normal </h6>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="turbChart"></div>
-                                                <!-- <div class="d-flex justify-content-center pt-4 gap-2">
-                                                    <div class="flex-shrink-0">
-                                                        <div id="expensesOfWeek"></div>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!--/ Temperature Monitor -->
                             </div>
-                            <!-- Turbidity Monitor -->
 
-                            <!-- Temperature Monitor -->
-                            <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4 mt-n5">
-                                <div class="card">
+                            
+                            <!--Tabel Monitoring-->
+                            <div class="col-12 mb-4">
+                                <div class="container-xxl flex-grow-1 container-p-y"></div>
+                                <div class="card mb-5">
                                     <div class="ms-n1 pt-1">
                                         <svg class="ms-3" xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
                                           <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
@@ -255,53 +288,47 @@
                                           </g>
                                       </svg>
                                     </div>
-                                    <div class="row row-bordered g-0">
-                                        <div class="col-md-8">
-                                            <h5 class="card-header m-0 me-2 pb-3">Temperature Monitor</h5>
-                                            <div class="mb-5" id="tempChart" class="px-2"></div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card-body">
-                                                <div class="text-center">
-                                                </div>
-                                            </div>
-                                            <div id="actualTempChart"></div>
-                                            <div class="text-center fw-semibold pt-3 mb-2">Actual Temperature</div>
-
-                                            <div class="row d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-center">
-                                                <div class="d-flex">
-                                                    <div class="me-2">
-                                                        <span class="badge bg-label-danger p-2"><i class="bi bi-exclamation-circle-fill"></i></span>
-                                                    </div>
-                                                    <div>
-                                                        <h6 class="mb-0">Abnormal </h6>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="me-2">
-                                                        <span class="badge bg-label-success p-2"><i class="bi bi-check-circle-fill"></i></span>
-                                                    </div>
-                                                    <div>
-                                                        <h6 class="mb-0">Normal </h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <h5 class="card-header">Tabel Monitoring {{ .title }}</h5>
+                                    <div class="table-responsive text-nowrap" id="table-paginate">
+                                        
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Temperature</th>
+                                                <th>Water Level</th>
+                                                <th>Turbidity</th>
+                                                <th>Request Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            <!-- {{ $rr := .Role}} -->
+                                             {{ $dv := .monitoring }}
+                                            {{ range $dev := $dv }}  
+                                            <tr>
+                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $dev.ID }}</strong>
+                                                </td>
+                                                <td>{{ $dev.Temperature }}</td>
+                                                <td>{{ $dev.WaterLevel }}</td>
+                                                <td>{{ $dev.Turbidity }}</td>
+                                                <td>{{ $dev.Request_time }}</td>
+                                            </tr>
+                                           {{ end }}
+                                        </tbody>
+    
+                                        </table>
+    
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Temperature Monitor -->
-
+                            <!--Tabel Monitoring-->
                         </div>
+                            
+
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
-
 
     </div>
     <!-- / Content -->
@@ -316,10 +343,6 @@
                 </script>
                 , made with by
                 <a class="footer-link fw-bolder">Murphy Group of 3</a>
-                <a class="text-light"> & Powered by</a>
-                <div class="d-flex justify-content-center">
-                    <img src="https://antares.id/assets/img/logoAntares_SVG_a.svg" class="img-thumbnail w-25 h-25 " alt="...">
-                </div>
             </div>
         </div>
     </footer>

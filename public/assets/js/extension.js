@@ -5,3 +5,8 @@ function fun(e) {
     kontener.setAttribute("style", "filter: brightness(" + val + "%);");
 }
 // brightness
+
+// pagination
+$(document).ready(function() {
+$('#table-paginate').DataTable();
+ } );
