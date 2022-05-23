@@ -1,4 +1,7 @@
+#include <AntaresESP32MQTT.h>
 #include <AntaresESP32HTTP.h>
+// #include <ArduinoJson.h>
+// #include <PubSubClient.h>
 
 #define ACCESSKEY "9fb52249c593c66d:b719370dce7d93b9"       // Ganti dengan access key akun Antares anda
 #define WIFISSID "Ayangto"         // Ganti dengan SSID WiFi anda
@@ -6,17 +9,20 @@
 
 #define applicationName "smartAquascape"   // Ganti dengan application name Antares yang telah dibuat
 #define deviceName "Aquascape-001"     // Pantau data monitoring
+//#define deviceControl "Aquascape-Control" //Controlling Device
 #define TimeMonitoring "TimeMonitoring" //Rentang Waktu Pertukaran Data Monitoring
 #define stsFeeder "Aquascape-Feeder"
 #define manFeeder "Manual-Feeder"
 #define auFeeder "Auto-Feeder"
 
-AntaresESP32HTTP antares(ACCESSKEY);    // Buat objek antares API
+AntaresESP32MQTT antares(ACCESSKEY);    // Buat objek antares MQTT
+AntaresESP32HTTP antaresAPI(ACCESSKEY);    // Buat objek antares API
 
 String data;
 struct tm timeinfo;
 struct timeval tv;
 char buf[64], timeLogic[64];
+//unsigned long TM_Sync;
 int sts_FeederControl = 2; //default Manual Control
 const char *ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 7 * 3600;
@@ -28,7 +34,10 @@ void setup() {
   Serial.begin(9600);
   Serial2.begin(9600);
   antares.setDebug(true);
+  antaresAPI.setDebug(true);
   antares.wifiConnection(WIFISSID,PASSWORD);  // Mencoba untuk menyambungkan ke WiFi
+  antaresAPI.wifiConnection(WIFISSID,PASSWORD);
+  antares.setMqttServer();  // Inisiasi server MQTT Antares
   
   //inisialisasi variabel
   Serial.println("getting the bloody time, one moment");
@@ -76,57 +85,71 @@ int getTimeLogical() {
 void sendAntares(String data, int id) {
   getTimeNow();
   Serial.println(buf);
-  Serial.println("Kirim Data Ke Antares...");
   if(id == 1) {
     antares.add("header", 1);
-    antares.add("data", data.c_str());
+    antares.add("data", data);
     antares.add("WaktuReq", buf);
   }
   
-  antares.send(applicationName, deviceName);
+  antares.publish(applicationName, deviceName);
   data = "";
 }
 
 void dataMonitoring() { //get data monitoring Arduino
-  Serial.print("Get data dari Arduino");
   Serial2.print("monitoring");
+  //rec = receiveData();
   receiveData();
   delay(50);
   if (data.length() > 0){
     Serial.println(data);
     sendAntares(data, 1);
-  } else {
-    Serial.println("Tidak dapat data dari Arduino");
   }
 }
 
 void getTimeMonitoring() {
   //Lakukan request Data Time Monitoring di db
+  // antares.add("header", 5);
+  // antares.add("data", "GetTimeMonitoring");
+  // antares.publish(applicationName, deviceControl);
   //Tangkap Respon Request Data Monitoring
-  antares.get(applicationName, TimeMonitoring);
-  if(antares.getInt("header") == 4) { //header 4 trigger by sensor
-    sts_time = antares.getInt("waktuPengiriman"); //Dalam menit  
+  antaresAPI.get(applicationName, TimeMonitoring);
+  //Serial.println(antaresAPI.getResponse());
+  //Serial.println(antaresAPI.getInt("header"));
+  if(antaresAPI.getInt("header") == 4) { //header 4 trigger by sensor
+    sts_time = antaresAPI.getInt("waktuPengiriman"); //Dalam menit  
   }
 }
 
 void MonitoringSync() {
+  Serial.println("Monitoring Sync Time: " + String(sts_time));
   unsigned long Mon_Sync = millis();
-  unsigned long TimeSync = sts_time * 60000; //Konversi menit to milisecond
-  Serial.println(Mon_Sync);
+  unsigned long TimeSync = sts_time * 30000;//60000; //Konversi menit to milisecond
+  //Serial.println(Mon_Sync);
   if ((unsigned long)(Mon_Sync - previousTimeMonitoring) >= TimeSync) {
-    Serial.println("Data Monitoring Sync");
     dataMonitoring();
-    Serial.println("Monitoring Sync Time: " + String(sts_time));
-    getTimeMonitoring();
     previousTimeMonitoring = Mon_Sync;
   }
+  //getTimeLogical();
+  // if(Mon_Sync <= TimeSync) { //Jika time dibawah waktu pengiriman
+  //   if(Mon_Sync == TimeSync) { //Jika waktu sama dengan waktu pengiriman
+  //     dataMonitoring();
+  //   }
+  // } else { //Jika time diatas waktu pengiriman
+  //   if(Mon_Sync%TimeSync == 0) { // Jika waktu adalah kelipatan waktu pengiriman
+  //     dataMonitoring();
+  //   }
+  // } 
 }
 
 void statusFeeder() { //status feeder
+  //Lakukan request Status Feeder Saat Ini
+  // antares.add("header", 6);
+  // antares.add("data", "FeederStatus");
+  // antares.publish(applicationName, deviceControl);
   //Tangkap status Feeder
-  antares.get(applicationName, stsFeeder);
-  if(antares.getInt("header") == 7) {
-    sts_FeederControl = antares.getInt("statusControl");
+  antaresAPI.get(applicationName, stsFeeder);
+  if(antaresAPI.getInt("header") == 7) {
+    sts_FeederControl = antaresAPI.getInt("statusControl");
   }
 }
 
@@ -136,49 +159,63 @@ void runFeeder() { //Jalankan feeder di arduino nya.
 
 void manualFeeder() {
   int manual = 0; //Default Feeder Mati
+  //Check status feeder aktif atau tidak
+  // antares.add("header", 8);
+  // antares.add("data", "StatusFeederManual");
+  // antares.publish(applicationName, deviceControl);
+
   //Tangkap Respon Request feeder aktif atau tidak
-  antares.get(applicationName, manFeeder);
-  if(antares.getInt("header") == 9) { 
-    manual = antares.getInt("statusFeeder");  
+  antaresAPI.get(applicationName, manFeeder);
+  if(antaresAPI.getInt("header") == 9) { 
+    manual = antaresAPI.getInt("statusFeeder");  
   }
 
   if(manual == 1) { //Jika button ditekan, Feeder Aktif
     runFeeder(); //Jalankan feeder
     antares.add("header", 9); //Rubah Status Feeder di database to disable
     antares.add("statusFeeder", 0);
-    antares.send(applicationName, manFeeder);
+    antares.publish(applicationName, manFeeder);
   }
 }
 
 void autoFeeder() {
   getTimeLogical();
   String waktuPertama = "0700", waktuKedua = "1400", waktuKetiga = "2100"; //Waktu pengiriman pertama dan kedua
-  antares.get(applicationName, auFeeder); //Tangkap status Feeder
-  if(antares.getInt("header") == 12) {
-    waktuPertama = antares.getString("waktuPertama");
-    waktuKedua = antares.getString("waktuKedua");
-    waktuKetiga = antares.getString("waktuKetiga");
+  //Dapatkan data waktu dari antares - db
+  // antares.add("header", 11);
+  // antares.add("data", "AutomaticFeeder");
+  // antares.publish(applicationName, deviceControl);
+  //Tangkap status Feeder
+  antaresAPI.get(applicationName, auFeeder);
+  if(antaresAPI.getInt("header") == 12) {
+    // snprintf(waktuPertama, sizeof(waktuPertama), antaresAPI.getString("waktuPertama"));
+    // snprintf(waktuKedua, sizeof(waktuKedua), antaresAPI.getString("waktuKedua"));
+    // snprintf(waktuKetiga, sizeof(waktuKetiga), antaresAPI.getString("waktuKetiga"));
+    waktuPertama = antaresAPI.getString("waktuPertama");
+    waktuKedua = antaresAPI.getString("waktuKedua");
+    waktuKetiga = antaresAPI.getString("waktuKetiga");
   }
   //bandingkan data waktu dengan time sekarang
   String waktuSekarang(timeLogic);
-  Serial.println(waktuSekarang);
-  if(waktuSekarang.equals(waktuPertama)) { //Jika waktu sama makan jalankan feeder
+  if(waktuSekarang == waktuPertama) { //Jika waktu sama makan jalankan feeder
     runFeeder();
-  } else if(waktuSekarang.equals(waktuKedua)) {
+  } else if(waktuSekarang == waktuKedua) {
     runFeeder();
-  } else if(waktuSekarang.equals(waktuKetiga)) {
+  } else if(waktuSekarang == waktuKetiga) {
     runFeeder();
   }
 }
 
 void loop() {
+  //TM_Sync = millis();
+  antares.checkMqttConnection();
+  getTimeMonitoring();
   MonitoringSync();
-  statusFeeder();
-  if(sts_FeederControl == 1) { //Status aktif untuk Auto controlling
-    Serial.println("Auto Feeder");
-    autoFeeder();
-  } else if(sts_FeederControl == 2) { //Status aktif untuk Manual controlling
-    manualFeeder();
-    Serial.println("Manual Feeder");
-  }
+   
+  // statusFeeder();
+  // if(sts_FeederControl == 1) { //Status aktif untuk Auto controlling
+  //   autoFeeder();
+  // } else if(sts_FeederControl == 2) { //Status aktif untuk Manual controlling
+  //   manualFeeder();
+  // }
 }

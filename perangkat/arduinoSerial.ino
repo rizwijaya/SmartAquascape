@@ -75,7 +75,6 @@ float round_to_dp( float in_value, int decimal_place ) {
   return in_value;
 }
 
-
 float Turbidity() {
   float volt = 0;
   float ntu;
@@ -89,7 +88,7 @@ float Turbidity() {
   }else{
     ntu = -1120.4*square(volt)+5742.3*volt-4353.8; 
   }
-  //Serial.print("Voltase: "+String(volt) +"  Kadar Kekeruhan: "+String(ntu));
+
   if (ntu > 400) {
     tone(buzzPin, 1000);
     delay(1000);
@@ -104,8 +103,6 @@ float Turbidity() {
 
 void sendData(String data2) {
   Serial2.print(data2);
-  //data = "";
-  //data2 = "";
 }
 
 void getDataSensor() {
@@ -114,31 +111,33 @@ void getDataSensor() {
   float temp = TempAquscape();
   float turb = Turbidity();
   data2 = "1:"+String(waterL)+":"+String(temp)+":"+String(turb)+";";
-  //Serial.println(data2);
+  Serial.println(data2);
   sendData(data2);
 }
 
-
-
-
-void runFeeder(){
-    for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    servoku.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
+int runFeeder(){
+  for (pos = 0; pos <= 180; pos += 1) {
+    servoku.write(pos);              
+    delay(15);                       
+    Serial.println(pos);
   }
+  data = "";
+  return 1;
 }
 
 void cekData(String data) {
   if (data.length() > 0){
-    //Serial.print(data);
-    if(strcmp(data.c_str(), "monitoring")) {
+    Serial.print(data.c_str());
+    String mon = "monitoring";
+    String feed = "feeder";
+    if(mon.equals(data.c_str())) {
       Serial.print(data);
       getDataSensor();
       data = "";
-    } else if(strcmp(data.c_str(), "feeder")) {
-      runFeeder();
+    } else if(feed.equals(data.c_str())) {
       Serial.println("Feeder Running"); //Program debug feeder
+      runFeeder();
+      data = "";
     }
   }
 }
@@ -150,20 +149,16 @@ void recData() {
     data += d;
   }
   if (data.length() > 0){
-    //Serial.println(data);
     cekData(data);
-    //data = "";
   }
 }
 
+
 void viewData() {
   lcd.setCursor(0, 0);
-  lcd.print("Suhu: "+ String(TempAquscape()) + " C");
-  lcd.setCursor(15, 0);
-  lcd.print("Kejernihan: "+ String(Turbidity()));
+  lcd.print("S:"+ String(TempAquscape()) + "C" + " T:" + String(Turbidity()));
   lcd.setCursor(0, 1);
-  lcd.print("Water Level: "+ String(WaterLevel()) + 
-  " cm");
+  lcd.print("WL : "+ String(WaterLevel()) + " cm");
 }
 
 void loop() {
