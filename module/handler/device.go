@@ -157,7 +157,7 @@ func (h *deviceHandler) ManualFeeder(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	defer resp.Body.Close()
+	//defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -191,7 +191,7 @@ func (h *deviceHandler) StatusFeeder(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	defer resp.Body.Close()
+	//defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -211,13 +211,14 @@ func (h *deviceHandler) DeliveryTime(c *gin.Context) {
 		return
 	}
 
-	data := "\r\n{\r\n  \"m2m:cin\": {\r\n    \"con\": \r\n      \"{\r\n      \t \\\"header\\\":,\r\n         \\\"statusControl\\\":1\r\n      }\"\r\n    }\r\n}"
+	//fmt.Println(input.DeliveryTime)
+	data := "\r\n{\r\n  \"m2m:cin\": {\r\n    \"con\": \r\n      \"{\r\n      \t \\\"header\\\":4,\r\n         \\\"waktuPengiriman\\\":" + input.DeliveryTime + "\r\n      }\"\r\n    }\r\n}"
 	//fmt.Println(data)
 	timeout := time.Duration(5 * time.Second)
 	client := http.Client{
 		Timeout: timeout,
 	}
-	req, err := http.NewRequest("POST", "https://platform.antares.id:8443/~/antares-cse/antares-id/smartAquascape/Aquascape-Feeder", bytes.NewBuffer([]byte(data)))
+	req, err := http.NewRequest("POST", "https://platform.antares.id:8443/~/antares-cse/antares-id/smartAquascape/TimeMonitoring", bytes.NewBuffer([]byte(data)))
 	req.Header.Set("X-M2M-Origin", "9fb52249c593c66d:b719370dce7d93b9")
 	req.Header.Set("Content-Type", "application/json;ty=4")
 	req.Header.Set("Accept", "application/json")
@@ -231,7 +232,7 @@ func (h *deviceHandler) DeliveryTime(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	defer resp.Body.Close()
+	//defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

@@ -53,7 +53,7 @@ func Init(db *gorm.DB) *gin.Engine {
 	router.POST("/login", userHandler.Login)
 	router.GET("/manualfeeder", deviceHandler.ManualFeeder)
 	router.GET("/statusfeeder/:sts", deviceHandler.StatusFeeder)
-	router.GET("/deliveryTime", deviceHandler.DeliveryTime)
+	router.POST("/deliveryTime", deviceHandler.DeliveryTime)
 	router.GET("/logout", userHandler.Logout)
 	api.POST("/users", userHandler.RegisterUser)
 	// api.POST("/login", userHandler.Login)
