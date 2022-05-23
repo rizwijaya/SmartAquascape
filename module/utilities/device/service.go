@@ -14,6 +14,7 @@ type Service interface {
 	GetOneWaterLevelByID(ID string) (WaterLevel, error)
 	GetOneTemperatureByID(ID string) (Temperature, error)
 	GetAllTurbidity() ([]Turbidity, error)
+	MonitoringDevice() ([]Monitoring, error)
 }
 
 type service struct {
@@ -112,11 +113,20 @@ func (s *service) GetOneTemperatureByID(ID string) (Temperature, error) {
 	}
 
 	var check Temperature
-	if check.Data < `24`|| check.Data > `25` {
+	if check.Data < `24` || check.Data > `25` {
 		fmt.Println("Suhu air tidak normal")
 	} else if check.Data >= `24` || check.Data <= `25` {
 		fmt.Println("Suhu air normal")
 	}
 
 	return temperature, nil
+}
+
+func (s *service) MonitoringDevice() ([]Monitoring, error) {
+	monitoring, err := s.repository.MonitoringDevice()
+	if err != nil {
+		return monitoring, err
+	}
+
+	return monitoring, nil
 }

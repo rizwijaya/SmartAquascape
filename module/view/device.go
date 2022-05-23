@@ -16,6 +16,24 @@ func NewDeviceView(deviceService device.Service) *deviceView {
 	return &deviceView{deviceService}
 }
 
+func (h *deviceView) Dashboard(c *gin.Context) {
+	session := sessions.Default(c)
+	data, err := h.deviceService.MonitoringDevice()
+
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+
+	c.HTML(http.StatusOK, "dashboard", gin.H{
+		"UserID":     session.Get("userID"),
+		"UserName":   session.Get("userName"),
+		"page":       "dashboard",
+		"title":      "SmartAquascape",
+		"monitoring": data,
+	})
+}
+
 func (h *deviceView) Index(c *gin.Context) {
 	device, err := h.deviceService.GetAllDevice()
 	if err != nil {

@@ -11,6 +11,7 @@ type Repository interface {
 	FindWaterLevelByID(ID string) (WaterLevel, error)
 	FindTemperatureByID(ID string) (Temperature, error)
 	GetAllTurbidity() ([]Turbidity, error)
+	MonitoringDevice() ([]Monitoring, error)
 }
 
 type repository struct {
@@ -70,7 +71,7 @@ func (r *repository) GetAllTurbidity() ([]Turbidity, error) {
 	return turbidity, nil
 }
 
-func (r * repository) FindTurbidityByID(ID string) (Turbidity, error){
+func (r *repository) FindTurbidityByID(ID string) (Turbidity, error) {
 	var turbidity Turbidity
 	err := r.db.Where("id").Find(&turbidity).Error
 	if err != nil {
@@ -79,7 +80,7 @@ func (r * repository) FindTurbidityByID(ID string) (Turbidity, error){
 	return turbidity, nil
 }
 
-func (r * repository) FindWaterLevelByID(ID string) (WaterLevel, error){
+func (r *repository) FindWaterLevelByID(ID string) (WaterLevel, error) {
 	var water_level WaterLevel
 	err := r.db.Where("id").Find(&water_level).Error
 	if err != nil {
@@ -88,11 +89,20 @@ func (r * repository) FindWaterLevelByID(ID string) (WaterLevel, error){
 	return water_level, nil
 }
 
-func (r * repository) FindTemperatureByID(ID string) (Temperature, error){
+func (r *repository) FindTemperatureByID(ID string) (Temperature, error) {
 	var temperature Temperature
 	err := r.db.Where("id").Find(&temperature).Error
 	if err != nil {
 		return temperature, err
 	}
 	return temperature, nil
+}
+
+func (r *repository) MonitoringDevice() ([]Monitoring, error) {
+	var monitoring []Monitoring
+	err := r.db.Table("monitoring").Find(&monitoring).Error
+	if err != nil {
+		return monitoring, err
+	}
+	return monitoring, nil
 }
