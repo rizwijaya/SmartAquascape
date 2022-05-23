@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,16 +31,17 @@ func (h *userView) Register(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "register", gin.H{
 		"title": "SmartAquascape Register",
-		"nama": ""})
+		"nama":  ""})
 }
 
-func (h *userView) Dashboard(c *gin.Context) {
-	session := sessions.Default(c)
+// func (h *userView) Dashboard(c *gin.Context) {
+// 	session := sessions.Default(c)
 
-	c.HTML(http.StatusOK, "dashboard", gin.H{
-		"UserID":   session.Get("userID"),
-		"UserName": session.Get("userName"),
-		"page":     "dashboard",
-		"Role":     session.Get("Role"),
-		"title":    "SmartAquascape"})
-}
+// 	data := h.userService.MonitoringDevice()
+
+// 	c.HTML(http.StatusOK, "dashboard", gin.H{
+// 		"UserID":   session.Get("userID"),
+// 		"UserName": session.Get("userName"),
+// 		"page":     "dashboard",
+// 		"title":    "SmartAquascape"})
+// }
