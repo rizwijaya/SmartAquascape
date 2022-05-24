@@ -356,7 +356,7 @@
     // water level chart
     const waterLevelChartEl = document.querySelector('#waterLevelChart'),
         waterLevelChartOptions = {
-            series: [20],
+            series: [40],
             labels: ['Cm'],
             chart: {
                 height: 120,

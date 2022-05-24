@@ -2,7 +2,12 @@ package view
 
 import (
 	"SmartAquascape/module/utilities/device"
+	"crypto/tls"
+	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -18,19 +23,57 @@ func NewDeviceView(deviceService device.Service) *deviceView {
 
 func (h *deviceView) Dashboard(c *gin.Context) {
 	session := sessions.Default(c)
-	data, err := h.deviceService.MonitoringDevice()
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			MaxVersion: tls.VersionTLS12,
+		},
+	}
+	client := &http.Client{Transport: tr}
+
+	req, err := http.NewRequest("GET", "https://platform.antares.id:8443/~/antares-cse/antares-id/smartAquascape/Aquascape-Feeder/la", nil)
+	req.Header.Add("X-M2M-Origin", "9fb52249c593c66d:b719370dce7d93b9")
+	req.Header.Add("Content-Type", "application/json;ty=4")
+	req.Header.Add("Accept", "application/json")
 
 	if err != nil {
+		log.Fatalln(err)
+		fmt.Println(err)
+	}
+
+	resp, err := client.Do(req)
+
+	if err != nil {
+		log.Fatalln(err)
+		fmt.Println(err)
+	}
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	str := string(body)
+
+	split1 := strings.Split(str, ":")
+	split2 := split1[15]
+	split3 := split2[0:1]
+
+	//fmt.Println(split3)
+
+	data, err := h.deviceService.MonitoringDevice()
+	data2, err2 := h.deviceService.MonitoringTable()
+	data3, err3 := h.deviceService.GetLatest()
+	if err != nil || err2 != nil || err3 != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
 
 	c.HTML(http.StatusOK, "dashboard", gin.H{
-		"UserID":     session.Get("userID"),
-		"UserName":   session.Get("userName"),
-		"page":       "dashboard",
-		"title":      "SmartAquascape",
-		"monitoring": data,
+		"UserID":          session.Get("userID"),
+		"UserName":        session.Get("userName"),
+		"page":            "dashboard",
+		"title":           "SmartAquascape",
+		"monitoring":      data,
+		"monitoringtable": data2,
+		"grafikdata":      data3,
+		"status":          split3,
 	})
 }
 

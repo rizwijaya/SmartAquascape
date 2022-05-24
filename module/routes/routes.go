@@ -68,6 +68,8 @@ func Init(db *gorm.DB) *gin.Engine {
 	api.GET("/getalltemperature", deviceHandler.GetAllTemperature)
 	api.GET("/getallwaterlevel", deviceHandler.GetAllWaterLevel)
 	api.GET("/monitoringdevice", deviceHandler.MonitoringDevice)
+	api.GET("/monitorgrafik", deviceHandler.MonitoringGrafik)
+	//api.GET("/getstatusfeeder", deviceHandler.GetStatusFeeder)
 	return router
 }
 

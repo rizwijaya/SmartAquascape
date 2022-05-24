@@ -48,3 +48,40 @@ type Monitoring struct {
 	Turbidity    string    `json:"turbidity"`
 	Request_time time.Time `json:"request_time"`
 }
+
+type MonTable struct {
+	ID           string    `json:"id"`
+	Temperature  string    `json:"temperature"`
+	WaterLevel   string    `json:"water_level"`
+	Turbidity    string    `json:"turbidity"`
+	Request_time time.Time `json:"request_time"`
+}
+
+type LastDataSensor struct {
+	ID           string    `json:"id"`
+	Temperature  string    `json:"temperature"`
+	WaterLevel   string    `json:"water_level"`
+	Turbidity    string    `json:"turbidity"`
+	Request_time time.Time `json:"request_time"`
+}
+
+type Inner struct {
+	StatusControl int `json:"statusControl"`
+}
+
+type Outer struct {
+	Con Inner `json:"con"`
+}
+
+type Outmost struct {
+	MM Outer `json:"m2m:cin"`
+}
+
+type StatusFeed struct {
+	//Con []StatusControl `json:"con"`
+	Satu string `json:"m2m:cin"`
+}
+
+// type StatusControl struct {
+// 	StatusControl int `json:"statusControl"`
+// }

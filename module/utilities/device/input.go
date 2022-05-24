@@ -9,3 +9,6 @@ type AutoF struct {
 	WaktuKedua   string `json:"waktukedua" binding:"required"`
 	WaktuKetiga  string `json:"waktuketiga" binding:"required"`
 }
+
+type Status struct {
+}

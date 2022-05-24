@@ -12,6 +12,8 @@ type Repository interface {
 	FindTemperatureByID(ID string) (Temperature, error)
 	GetAllTurbidity() ([]Turbidity, error)
 	MonitoringDevice() ([]Monitoring, error)
+	MonitoringTable() ([]MonTable, error)
+	GetLatest() ([]LastDataSensor, error)
 }
 
 type repository struct {
@@ -105,4 +107,22 @@ func (r *repository) MonitoringDevice() ([]Monitoring, error) {
 		return monitoring, err
 	}
 	return monitoring, nil
+}
+
+func (r *repository) MonitoringTable() ([]MonTable, error) {
+	var monitoring []MonTable
+	err := r.db.Raw("SELECT * FROM monitoring ORDER BY ID DESC LIMIT 10").Scan(&monitoring).Error
+	if err != nil {
+		return monitoring, err
+	}
+	return monitoring, nil
+}
+
+func (r *repository) GetLatest() ([]LastDataSensor, error) {
+	var LastDataSensor []LastDataSensor
+	err := r.db.Raw("SELECT * FROM monitoring ORDER BY ID DESC LIMIT 1").Scan(&LastDataSensor).Error
+	if err != nil {
+		return LastDataSensor, err
+	}
+	return LastDataSensor, nil
 }

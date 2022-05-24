@@ -26,6 +26,8 @@ type DeviceHandler interface {
 	StatusFeeder(c *gin.Context)
 	DeliveryTime(c *gin.Context)
 	AutoFeeder(c *gin.Context)
+	GetStatusFeeder(c *gin.Context)
+	MonitoringGrafik(c *gin.Context)
 }
 
 type deviceHandler struct {
@@ -174,7 +176,7 @@ func (h *deviceHandler) ManualFeeder(c *gin.Context) {
 func (h *deviceHandler) StatusFeeder(c *gin.Context) {
 	sts := c.Param("sts")
 
-	data := "\r\n{\r\n  \"m2m:cin\": {\r\n    \"con\": \r\n      \"{\r\n      \t \\\"header\\\":,\r\n         \\\"statusControl\\\":" + sts + "\r\n      }\"\r\n    }\r\n}"
+	data := "\r\n{\r\n  \"m2m:cin\": {\r\n    \"con\": \r\n      \"{\r\n      \t \\\"header\\\":7,\r\n         \\\"statusControl\\\":" + sts + "\r\n      }\"\r\n    }\r\n}"
 	//fmt.Println(data)
 	timeout := time.Duration(5 * time.Second)
 	client := http.Client{
@@ -288,4 +290,17 @@ func (h *deviceHandler) AutoFeeder(c *gin.Context) {
 
 	log.Println(string(body))
 	c.Redirect(http.StatusFound, "/dashboard")
+}
+
+func (h *deviceHandler) MonitoringGrafik(c *gin.Context) {
+
+	result, err := h.deviceService.MonitoringTable()
+
+	if err != nil {
+		response := helper.APIRespon("Monitoring Device Failed", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": result})
 }
