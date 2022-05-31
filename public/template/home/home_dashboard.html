@@ -24,7 +24,7 @@
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-7">
                                             <div class="card-body">
-                                                <h5 class="card-title text-primary">Selamat Datang {{ .username }}! 🎉
+                                                <h5 class="card-title text-primary">Selamat Datang {{ .UserName }}! 🎉
                                                 </h5>
                                                 <p class="mb-4">
                                                     Mudik tenang dengan<span class="fw-bold"> SmartAquascape</span>
@@ -62,13 +62,13 @@
                                         <div class="row justify-content-center mb-2">
                                             <div class="col">
                                                 <h5 class="d-block mb-1">Water Level </h5>
-                                                <p class="mb-4">
-                                                    Tresshold normal
+                                                <p class="mb-2">
+                                                    Ketinggian Normal
                                                 </p>
                                             </div>
                                             {{ $gf := .grafikdata }} {{ range $gef := $gf }}
                                             <div class="col">
-                                                <p class="text-center fw-bold display-4">{{ $gef.WaterLevel }} <span>cm</span></p>
+                                                <p class="text-center fw-bold display-5">{{ $gef.WaterLevel }} <span>cm</span></p>
                                             </div>
                                             {{ end}}
                                         </div>
@@ -311,7 +311,7 @@
                                                 </div>
                                             </div>
                                             {{ $gf := .grafikdata }} {{ range $gef := $gf }}
-                                            <p class="text-center fw-bold display-1 mt-5">{{ $gef.WaterLevel }} <span>&#8451;</span></p>
+                                            <p class="text-center fw-bold display-1 mt-5">{{ $gef.Temperature }} <span>&#8451;</span></p>
                                             {{ end }}
                                             <div class="text-center fw-semibold mb-4 ">Actual Temperature</div>
 

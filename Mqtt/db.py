@@ -9,6 +9,10 @@ def connector():
         user="root",
         password="",
         database="smartaquascape"
+        #  host="103.147.154.41",
+        # user="iotdevel_iotdevel",
+        # password="iotdevel123",
+        # database="iotdevel_smartaquascape"
     )
     return mydb
 
